@@ -120,7 +120,7 @@ class LaravelDesignPlugin implements Plugin
      * 'full', a string for any Filament max-width preset, or `false` to
      * keep the panel's own configuration.
      */
-    public function maxContentWidth(bool | string $value = true): static
+    public function maxContentWidth(bool|string $value = true): static
     {
         $this->maxContentWidth = $value;
 
