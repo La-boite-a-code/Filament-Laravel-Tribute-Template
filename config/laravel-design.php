@@ -2,43 +2,36 @@
 
 declare(strict_types=1);
 
+use Laboiteacode\LaravelDesign\LaravelDesignPlugin;
+
 /*
  * LaravelDesign theme configuration.
  *
- * Override these values from your application by publishing the config file:
+ * The whole theme is configured fluently from your Filament PanelProvider:
+ *
+ *     ->plugin(
+ *         LaravelDesignPlugin::make()
+ *             ->palette('forge') // laravel | forge | cloud
+ *             ->compact()
+ *             ->maxContentWidth('full'),
+ *     )
+ *
+ * This config file only exists for projects that prefer environment-driven
+ * defaults. Publish it with:
  *   php artisan vendor:publish --tag="laravel-design-config"
  */
 return [
 
     /*
     |--------------------------------------------------------------------------
-    | Brand Colors
+    | Default palette
     |--------------------------------------------------------------------------
     |
-    | Default brand color palette used by the theme. Override per-panel
-    | through the LaravelDesignPlugin if you need to customize at runtime.
+    | Brand palette used when ->palette() is not called explicitly.
+    | Supported values: 'laravel' (red), 'forge' (teal), 'cloud' (blue).
     |
     */
 
-    'colors' => [
-        'primary' => 'amber',
-        'gray' => 'zinc',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Layout Defaults
-    |--------------------------------------------------------------------------
-    */
-
-    'layout' => [
-        'sidebar' => [
-            'collapsible' => true,
-            'width' => '20rem',
-        ],
-        'topbar' => [
-            'sticky' => true,
-        ],
-    ],
+    'palette' => env('LARAVEL_DESIGN_PALETTE', LaravelDesignPlugin::PALETTE_LARAVEL),
 
 ];

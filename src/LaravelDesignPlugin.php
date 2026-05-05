@@ -8,18 +8,28 @@ use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\HtmlString;
 
 class LaravelDesignPlugin implements Plugin
 {
-    /**
-     * Laravel's signature red used as the primary accent color.
-     */
-    public const string LARAVEL_RED = '#FF2D20';
+    public const string PALETTE_LARAVEL = 'laravel';
+
+    public const string PALETTE_FORGE = 'forge';
+
+    public const string PALETTE_CLOUD = 'cloud';
 
     /**
-     * Brand colors per Filament color slot. Resolved lazily so consumers
-     * may pass closures that depend on application state.
-     *
+     * Brand HEX anchors per palette — sourced from the official Laravel,
+     * Forge and Cloud sites.
+     */
+    private const PALETTE_HEX = [
+        self::PALETTE_LARAVEL => '#f53003',
+        self::PALETTE_FORGE => '#18b69b',
+        self::PALETTE_CLOUD => '#0057ff',
+    ];
+
+    /**
      * @var array<string, mixed>
      */
     protected array $colors = [];
@@ -31,6 +41,8 @@ class LaravelDesignPlugin implements Plugin
     protected bool $compact = false;
 
     protected bool $maxContentWidth = false;
+
+    protected string $palette = self::PALETTE_LARAVEL;
 
     public function getId(): string
     {
@@ -50,6 +62,15 @@ class LaravelDesignPlugin implements Plugin
         if ($this->maxContentWidth !== false) {
             $panel->maxContentWidth($this->maxContentWidth === true ? 'full' : $this->maxContentWidth);
         }
+
+        if ($this->palette !== self::PALETTE_LARAVEL) {
+            $panel->renderHook(
+                PanelsRenderHook::BODY_START,
+                fn (): HtmlString => new HtmlString(
+                    "<script>document.body.classList.add('ld-palette-{$this->palette}');</script>"
+                ),
+            );
+        }
     }
 
     public function boot(Panel $panel): void
@@ -68,6 +89,22 @@ class LaravelDesignPlugin implements Plugin
         $plugin = filament(app(static::class)->getId());
 
         return $plugin;
+    }
+
+    /**
+     * Pick the brand palette: laravel (default), forge, or cloud.
+     */
+    public function palette(string $palette): static
+    {
+        if (! array_key_exists($palette, self::PALETTE_HEX)) {
+            throw new \InvalidArgumentException(
+                "Unknown palette [{$palette}]. Use one of: ".implode(', ', array_keys(self::PALETTE_HEX))
+            );
+        }
+
+        $this->palette = $palette;
+
+        return $this;
     }
 
     /**
@@ -128,7 +165,7 @@ class LaravelDesignPlugin implements Plugin
     }
 
     /**
-     * Default Laravel-inspired palette.
+     * Default Laravel-inspired palette resolved from the active brand.
      *
      * @return array<string, mixed>
      */
@@ -138,13 +175,15 @@ class LaravelDesignPlugin implements Plugin
             return $this->collapseClosures($this->colors);
         }
 
+        $primaryHex = self::PALETTE_HEX[$this->palette];
+
         return [
-            'primary' => Color::hex(self::LARAVEL_RED),
+            'primary' => Color::hex($primaryHex),
             'gray' => Color::Stone,
             'info' => Color::Sky,
             'success' => Color::Emerald,
             'warning' => Color::Amber,
-            'danger' => Color::hex(self::LARAVEL_RED),
+            'danger' => Color::hex(self::PALETTE_HEX[self::PALETTE_LARAVEL]),
         ];
     }
 

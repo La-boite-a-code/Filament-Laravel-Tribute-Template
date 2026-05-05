@@ -8,7 +8,6 @@ use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
-use Laboiteacode\LaravelDesign\Commands\LaravelDesignCommand;
 use Laboiteacode\LaravelDesign\Testing\TestsLaravelDesign;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -29,11 +28,9 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->publishAssets()
                     ->askToStarRepoOnGitHub('laboiteacode/laravel-design');
             });
 
@@ -41,14 +38,6 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
             $package->hasConfigFile();
-        }
-
-        if (file_exists($package->basePath('/../database/migrations'))) {
-            $package->hasMigrations($this->getMigrations());
-        }
-
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
         }
 
         if (file_exists($package->basePath('/../resources/views'))) {
@@ -108,16 +97,6 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
     }
 
     /**
-     * @return array<class-string>
-     */
-    protected function getCommands(): array
-    {
-        return [
-            LaravelDesignCommand::class,
-        ];
-    }
-
-    /**
      * @return array<string>
      */
     protected function getIcons(): array
@@ -126,25 +105,9 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
     }
 
     /**
-     * @return array<string>
-     */
-    protected function getRoutes(): array
-    {
-        return [];
-    }
-
-    /**
      * @return array<string, mixed>
      */
     protected function getScriptData(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getMigrations(): array
     {
         return [];
     }

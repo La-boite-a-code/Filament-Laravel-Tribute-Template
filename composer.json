@@ -1,20 +1,21 @@
 {
     "name": "laboiteacode/laravel-design",
-    "description": "A premium Filament v5 theme.",
+    "description": "A free Filament v5 theme paying tribute to the laravel.com art direction. First of a series of homage themes.",
     "keywords": [
         "laboiteacode",
         "laravel",
         "laravel-design",
         "filament",
         "filament-theme",
-        "filament-plugin"
+        "filament-plugin",
+        "homage-theme"
     ],
     "homepage": "https://github.com/laboiteacode/laravel-design",
     "support": {
         "issues": "https://github.com/laboiteacode/laravel-design/issues",
         "source": "https://github.com/laboiteacode/laravel-design"
     },
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "La Boite à Code",
@@ -71,10 +72,7 @@
         "laravel": {
             "providers": [
                 "Laboiteacode\\LaravelDesign\\LaravelDesignServiceProvider"
-            ],
-            "aliases": {
-                "LaravelDesign": "Laboiteacode\\LaravelDesign\\Facades\\LaravelDesign"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
