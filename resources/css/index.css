@@ -19,9 +19,13 @@
 | Filament's own component layer.
 */
 
-/* Instrument Sans (variable) — official typeface of laravel.com.
-   Loaded via Google Fonts CSS API; no @font-face declarations needed. */
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+/*
+| Instrument Sans (variable) — official typeface of laravel.com.
+| The @import for Google Fonts MUST live in the host's entry-point theme
+| stylesheet (Tailwind v4 / Vite require @import rules to come before any
+| other CSS). The published `theme.css` stub ships the import; the package
+| itself only declares the font in `--font-sans` further down.
+*/
 
 /* ==========================================================================
    1. DESIGN TOKENS
@@ -91,9 +95,6 @@
     --ld-stroke: 1px;
     --ld-border-soft-light: oklch(0.918 0.005 75);
     --ld-border-soft-dark:  oklch(0.300 0.005 75);
-    /* Aliases conservés pour compat éventuelle, désormais solides */
-    --ld-dash-color-light: var(--ld-border-soft-light);
-    --ld-dash-color-dark:  var(--ld-border-soft-dark);
 
     /* Elevation — subtle / medium / heavy (per visual direction §Ombres) */
     --ld-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
@@ -111,11 +112,9 @@
     --ld-canvas: oklch(0.982 0.003 75);
 
     /* Motion — keep ≤ 250ms (visual direction §Transitions) */
-    --ld-duration-fast: 100ms;
     --ld-duration:      150ms;
     --ld-duration-slow: 200ms;
     --ld-ease-out:      cubic-bezier(0.2, 0.8, 0.2, 1);
-    --ld-ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
 
     --font-sans: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-display: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -143,13 +142,13 @@
     --fi-color-gray-100: oklch(0.974 0.004 75);
     --fi-color-gray-200: oklch(0.937 0.005 75);
     --fi-color-gray-300: oklch(0.882 0.006 75);
-    --fi-color-gray-400: oklch(0.715 0.007 75);
-    --fi-color-gray-500: oklch(0.560 0.008 75);
-    --fi-color-gray-600: oklch(0.450 0.008 75);
-    --fi-color-gray-700: oklch(0.378 0.007 75);
-    --fi-color-gray-800: oklch(0.282 0.005 75);
-    --fi-color-gray-900: oklch(0.180 0.004 75);
-    --fi-color-gray-950: oklch(0.105 0.003 75);
+    --fi-color-gray-400: oklch(0.730 0.007 75);
+    --fi-color-gray-500: oklch(0.580 0.008 75);
+    --fi-color-gray-600: oklch(0.460 0.008 75);
+    --fi-color-gray-700: oklch(0.355 0.007 75);
+    --fi-color-gray-800: oklch(0.255 0.006 75);
+    --fi-color-gray-900: oklch(0.165 0.005 75);
+    --fi-color-gray-950: oklch(0.082 0.004 75);
 
     /*
     | Filament v5 exposes semantic palettes (success / warning / danger / info)
@@ -289,9 +288,19 @@ body {
 .fi-body {
     background:
         radial-gradient(
-            ellipse 110% 50% at 50% -15%,
-            color-mix(in oklch, var(--fi-color-primary-500) 5%, transparent),
+            ellipse 90% 40% at 15% -10%,
+            color-mix(in oklch, var(--fi-color-primary-500) 6%, transparent),
+            transparent 55%
+        ),
+        radial-gradient(
+            ellipse 70% 35% at 95% 8%,
+            color-mix(in oklch, var(--fi-color-primary-500) 4%, transparent),
             transparent 60%
+        ),
+        radial-gradient(
+            ellipse 80% 50% at 80% 95%,
+            color-mix(in oklch, var(--fi-color-primary-500) 3%, transparent),
+            transparent 65%
         ),
         var(--ld-canvas);
     background-attachment: fixed;
@@ -303,9 +312,19 @@ body {
 .dark .fi-body {
     background:
         radial-gradient(
-            ellipse 110% 50% at 50% -15%,
-            color-mix(in oklch, var(--fi-color-primary-500) 10%, transparent),
+            ellipse 90% 40% at 15% -10%,
+            color-mix(in oklch, var(--fi-color-primary-500) 12%, transparent),
+            transparent 55%
+        ),
+        radial-gradient(
+            ellipse 70% 35% at 95% 8%,
+            color-mix(in oklch, var(--fi-color-primary-500) 8%, transparent),
             transparent 60%
+        ),
+        radial-gradient(
+            ellipse 80% 50% at 80% 95%,
+            color-mix(in oklch, var(--fi-color-primary-500) 6%, transparent),
+            transparent 65%
         ),
         var(--ld-canvas);
     background-attachment: fixed;
@@ -320,12 +339,21 @@ body {
 
 .fi-topbar {
     background-color: white;
-    border-bottom: 1px solid var(--ld-dash-color-light);
+    border-bottom: 1px solid var(--ld-border-soft-light);
+    box-shadow: none;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
     position: relative;
+}
+.fi-topbar > nav,
+.fi-topbar > div {
+    box-shadow: none;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
 }
 .dark .fi-topbar {
     background-color: var(--fi-color-gray-900);
-    border-bottom-color: var(--ld-dash-color-dark);
+    border-bottom-color: var(--ld-border-soft-dark);
 }
 
 /*
@@ -338,21 +366,21 @@ body {
 
 .fi-sidebar {
     background-color: white;
-    border-right: 1px solid var(--ld-dash-color-light);
+    border-right: 1px solid var(--ld-border-soft-light);
 }
 .dark .fi-sidebar {
     background-color: var(--fi-color-gray-900);
-    border-right-color: var(--ld-dash-color-dark);
+    border-right-color: var(--ld-border-soft-dark);
 }
 
 .fi-sidebar-header {
     padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--ld-dash-color-light);
+    border-bottom: 1px solid var(--ld-border-soft-light);
     background-color: white;
 }
 .dark .fi-sidebar-header {
     background-color: var(--fi-color-gray-900);
-    border-bottom-color: var(--ld-dash-color-dark);
+    border-bottom-color: var(--ld-border-soft-dark);
 }
 
 .fi-sidebar-nav {
@@ -369,12 +397,12 @@ body {
 }
 
 .fi-sidebar-group + .fi-sidebar-group {
-    border-top: 1px solid var(--ld-dash-color-light);
+    border-top: 1px solid var(--ld-border-soft-light);
     margin-top: 0.375rem;
     padding-top: 0.625rem;
 }
 .dark .fi-sidebar-group + .fi-sidebar-group {
-    border-top-color: var(--ld-dash-color-dark);
+    border-top-color: var(--ld-border-soft-dark);
 }
 
 .fi-sidebar-group-label {
@@ -417,18 +445,82 @@ body {
 
 .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
     background: linear-gradient(
-        135deg,
-        color-mix(in oklch, var(--fi-color-primary-500) 18%, transparent),
-        color-mix(in oklch, var(--fi-color-primary-600) 6%, transparent) 80%
+        90deg,
+        color-mix(in oklch, var(--fi-color-primary-500) 14%, transparent),
+        color-mix(in oklch, var(--fi-color-primary-500) 4%, transparent) 70%,
+        transparent 100%
     );
     color: var(--fi-color-primary-700);
-    box-shadow: inset 3px 0 0 0 var(--fi-color-primary-500);
+    font-weight: 600;
+    box-shadow:
+        inset 3px 0 0 0 var(--fi-color-primary-500),
+        inset 0 0 0 1px color-mix(in oklch, var(--fi-color-primary-500) 12%, transparent);
 }
 .dark .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
     color: var(--fi-color-primary-300);
+    background: linear-gradient(
+        90deg,
+        color-mix(in oklch, var(--fi-color-primary-500) 22%, transparent),
+        color-mix(in oklch, var(--fi-color-primary-500) 8%, transparent) 70%,
+        transparent 100%
+    );
 }
 .fi-sidebar-item.fi-active .fi-sidebar-item-icon {
     color: var(--fi-color-primary-500);
+}
+
+/* Active indicator dot at the right edge — quiet "you are here" marker.
+   Hidden when the item already carries a count badge (we'd collide with it);
+   the badge below picks up the active treatment instead. */
+.fi-sidebar-item .fi-sidebar-item-btn {
+    position: relative;
+}
+.fi-sidebar-item.fi-active .fi-sidebar-item-btn::after {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0.625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.3125rem;
+    height: 0.3125rem;
+    border-radius: 9999px;
+    background-color: var(--fi-color-primary-500);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--fi-color-primary-500) 18%, transparent);
+}
+.fi-sidebar-item.fi-active:has(.fi-sidebar-item-badge-ctn) .fi-sidebar-item-btn::after {
+    display: none;
+}
+
+/* When the sidebar is collapsed to icons, the active "bubble" (gradient,
+   inset ring, edge dot) reads as a heavy frame around a single glyph and
+   adds no information — the tinted icon already marks the current page.
+   Strip the chrome and keep only the icon colour. */
+.fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
+    background: transparent;
+    box-shadow: none;
+}
+.dark .fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
+    background: transparent;
+}
+.fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-item.fi-active .fi-sidebar-item-btn::after {
+    display: none;
+}
+
+/* When the active item carries a badge, promote the badge itself to the
+   active marker — solid primary fill so it reads as "current page" without
+   needing a separate dot. */
+.fi-sidebar-item.fi-active .fi-sidebar-item-badge-ctn .fi-badge {
+    background-color: var(--fi-color-primary-500);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--fi-color-primary-700) 22%, transparent);
+}
+.dark .fi-sidebar-item.fi-active .fi-sidebar-item-badge-ctn .fi-badge {
+    background-color: var(--fi-color-primary-400);
+    color: var(--fi-color-gray-950);
+}
+.fi-sidebar-item.fi-active .fi-sidebar-item-badge-ctn .fi-badge .fi-badge-label {
+    color: inherit;
 }
 
 /* ==========================================================================
@@ -444,31 +536,23 @@ body {
 */
 
 /*
-| Forge-style "double frame" — inner solid border + outer hairline ring
-| separated by a small gap painted in the canvas colour. The outer ring
-| is tinted with the active `palette()` primary so the panel skin shifts
-| with --fi-color-primary-500 without any per-app override.
+| Double-frame surface — inner solid border + outer hairline ring
+| separated by a canvas-coloured gap. Both border colours are neutral
+| grays (no palette tint) so the chrome stays calm in both light and
+| dark mode and doesn't fight with the active brand palette.
 |
-| Tokens (overridable on .fi-section / .fi-ta):
+| Tokens:
 |   --ld-frame-gap        gap between inner border and outer ring
-|   --ld-frame-gap-color  canvas colour painted in that gap
-|   --ld-frame-mix        primary-mix percentage for the ring colour
-|
-| Note: the ring colour is inlined as `color-mix(... var(--fi-color-primary-500) ...)`
-| at every consumer instead of stored in a variable, because nested
-| `var()` calls inside `color-mix()` are resolved at the declaration
-| scope (`:root`) rather than the consumer scope, which would freeze
-| the ring on the default palette and miss `.ld-palette-{forge,cloud}`.
+|   --ld-frame-gap-color  fill colour painted in that gap (canvas)
+|   --ld-frame-ring-color outer hairline colour
 */
 :root {
     --ld-frame-gap: 3px;
     --ld-frame-gap-color: var(--ld-canvas);
-    /* Subtle brand-tinted ring — kept low so it reads like a hairline,
-       not a focus highlight. Forge-style: structural, not decorative. */
-    --ld-frame-mix: 9%;
+    --ld-frame-ring-color: var(--fi-color-gray-200);
 }
 .dark {
-    --ld-frame-mix: 18%;
+    --ld-frame-ring-color: var(--fi-color-gray-800);
 }
 
 .fi-section {
@@ -477,7 +561,7 @@ body {
     border-radius: var(--ld-radius);
     box-shadow:
         0 0 0 var(--ld-frame-gap) var(--ld-frame-gap-color),
-        0 0 0 calc(var(--ld-frame-gap) + 1px) color-mix(in oklch, var(--fi-color-primary-500) var(--ld-frame-mix), transparent);
+        0 0 0 calc(var(--ld-frame-gap) + 1px) var(--ld-frame-ring-color);
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
 }
@@ -566,15 +650,27 @@ body {
 
 .fi-header-heading {
     font-family: var(--font-display);
-    font-size: 1.75rem;
+    font-size: 1.875rem;
     font-weight: 700;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.04em;
     color: var(--fi-color-gray-900);
-    line-height: 1.1;
+    line-height: 1.05;
     text-wrap: balance;
+    position: relative;
+    display: inline-block;
 }
 .dark .fi-header-heading {
     color: var(--fi-color-gray-50);
+}
+
+/* Subtle primary-colored period after the title — laravel.com signature
+   accent. Targets only the page-level header (h1), not section/widget
+   headings (which use h3). */
+h1.fi-header-heading::after {
+    content: '.';
+    color: var(--fi-color-primary-500);
+    margin-inline-start: 0.0625rem;
+    font-weight: 700;
 }
 
 .fi-header-subheading {
@@ -873,14 +969,14 @@ body {
 .fi-fo-fieldset,
 .fi-sc-fieldset {
     background-color: white;
-    border: var(--ld-stroke) solid var(--ld-dash-color-light);
+    border: var(--ld-stroke) solid var(--ld-border-soft-light);
     border-radius: var(--ld-radius);
     padding: 1.25rem 1.5rem;
 }
 .dark .fi-fo-fieldset,
 .dark .fi-sc-fieldset {
     background-color: var(--fi-color-gray-900);
-    border-color: var(--ld-dash-color-dark);
+    border-color: var(--ld-border-soft-dark);
 }
 
 .fi-fieldset-label,
@@ -966,7 +1062,7 @@ body {
     border-radius: var(--ld-radius);
     box-shadow:
         0 0 0 var(--ld-frame-gap) var(--ld-frame-gap-color),
-        0 0 0 calc(var(--ld-frame-gap) + 1px) color-mix(in oklch, var(--fi-color-primary-500) var(--ld-frame-mix), transparent);
+        0 0 0 calc(var(--ld-frame-gap) + 1px) var(--ld-frame-ring-color);
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
     overflow: hidden;
@@ -977,11 +1073,13 @@ body {
     border-color: var(--fi-color-gray-800);
 }
 
-/* Header (search bar, column manager, etc.) sits above the table */
+/* Header (search bar, column manager, etc.) sits above the table.
+   Horizontal padding aligns the select-all checkbox with the row
+   checkboxes below it (rows have a 24px content-prefix gutter). */
 .fi-ta-content-header {
     background-color: transparent;
     border: none;
-    padding: 0 0 1rem 0;
+    padding: 0.75rem 1.5rem 0.875rem;
     margin-bottom: 0;
     display: flex;
     align-items: center;
@@ -1013,17 +1111,86 @@ body {
 .fi-ta-filters-above-content-ctn > .fi-ta-filters-trigger-action-ctn {
     position: absolute;
     top: 1.25rem;
-    inset-inline-end: 0;
+    inset-inline-end: 1rem;
+    margin: 0;
     z-index: 5;
 }
 
-/* Filters panel + indicators stay in the flow */
-.fi-ta-filters,
+/* When the inline filter trigger is present, reserve space at the
+   end of the toolbar so the column-manager button doesn't sit under
+   the absolutely-positioned funnel. 36px (button) + 16px (right inset)
+   + 8px (gap) = 60px of padding pushed onto whatever sibling toolbar
+   renders below the filter container. */
+.fi-ta-header-ctn:has(> .fi-ta-filters-above-content-ctn .fi-ta-filters-trigger-action-ctn) .fi-ta-header-toolbar {
+    padding-inline-end: calc(1.5rem + 36px + 0.5rem);
+}
+
+/* Same idea for the filter panel's own header row when open: the
+   "Reset" link sits at the right edge of the panel and otherwise
+   collides with the absolute funnel trigger overlay. Push the
+   header's content inset so the link clears the trigger's footprint. */
+.fi-ta-filters-above-content-ctn.fi-open .fi-ta-filters-header {
+    padding-inline-end: calc(36px + 0.5rem);
+}
+
+/* Dropdown-variant filter trigger: in v5 the badge wrapper is only
+   emitted when at least one filter is active, so any wrapper that
+   somehow renders without a `.fi-badge` child is the stray empty
+   case and should be hidden. */
+.fi-ta-filters-dropdown .fi-icon-btn-badge-ctn:not(:has(.fi-badge)) {
+    display: none;
+}
+
+/* Inline (above-content) variant: Filament always renders the badge
+   wrapper with the count even when 0, because `filled(0)` is true in
+   Laravel. Showing "0" next to a closed filter panel is noise — and
+   the active-filters indicators row below the toolbar already
+   communicates which filters are applied via removable chips. Hide
+   the count badge entirely for this variant. */
+.fi-ta-filters-trigger-action-ctn .fi-icon-btn-badge-ctn {
+    display: none;
+}
+
+/* Filters panel rendered inline above the table. Strip Filament's card
+   chrome (the .fi-ta frame already wraps everything) but keep gutters
+   that align with the toolbar below — so "Filters" sits flush with the
+   search input, not against the card edge. */
+.fi-ta-filters-above-content-ctn .fi-ta-filters {
+    background-color: transparent;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-block: 0;
+    gap: 1rem;
+}
+
+/* Hairline divider between the open filter panel and the toolbar that
+   follows it — without this they merge into one tall slab of dark. */
+.fi-ta-filters-above-content-ctn.fi-open {
+    border-bottom: 1px solid var(--ld-border-soft-light);
+}
+.dark .fi-ta-filters-above-content-ctn.fi-open {
+    border-bottom-color: var(--ld-border-soft-dark);
+}
+
+/* Active-filters bar lives flush inside the table frame (.fi-ta-main is
+   1216px-wide, no inner gutter). Without horizontal padding the label
+   and the trailing "remove all" X kiss the border on both sides. Match
+   the toolbar's 1.5rem inline gutter so the chip aligns with the search
+   input and the X aligns with the column-manager trigger above. */
 .fi-ta-filter-indicators {
     background-color: transparent;
     border: none;
-    padding: 0;
-    margin-block: 0.5rem;
+    padding: 0.25rem 1.5rem 0.75rem;
+    margin-block: 0;
+}
+
+/* Filters rendered inside a dropdown panel: the panel itself only carries
+   the popover chrome (0.375rem), so the form needs its own padding to
+   breathe. Match the inner gutter to the trigger's visual weight. */
+.fi-dropdown-panel > .fi-ta-filters {
+    padding: 1rem;
+    gap: 0.875rem;
+    margin-block: 0;
 }
 
 /* ==========================================================================
@@ -1110,42 +1277,16 @@ body {
     max-width: 22rem;
 }
 
-/*
-| Sort-by orphan fix — list-style tables (no clickable column headers)
-| ship a `.fi-ta-sorting-settings` dropdown alone in `.fi-ta-content-header`
-| above the rows. It reads as disconnected from the search bar. We can't
-| lift it into the toolbar via absolute positioning because
-| `.fi-ta-content-ctn` clips with `overflow: auto`. Instead we visually
-| merge the two rows: drop the divider beneath the toolbar, push the sort
-| to the right (under the search), keep the select-all checkbox at the
-| left. The two rows then read as one continuous control band.
-*/
-.fi-ta-header-toolbar:has(+ .fi-ta-selection-indicator + .fi-ta-content-ctn .fi-ta-sorting-settings),
-.fi-ta-content-ctn:has(.fi-ta-sorting-settings) ~ * .fi-ta-header-toolbar,
-.fi-ta-main:has(.fi-ta-sorting-settings) .fi-ta-header-toolbar {
-    border-bottom: none;
-    padding-bottom: 0.375rem;
-}
-
-.fi-ta-content-header:has(> .fi-ta-sorting-settings) {
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0.375rem;
-    padding-bottom: 0.875rem;
-    padding-inline-end: 1.5rem;
-}
-
-/* Push the sort dropdown to the far right so its right edge sits under
-   the search bar's right edge above it. */
-.fi-ta-content-header > .fi-ta-sorting-settings {
-    margin-inline-start: auto;
-}
 
 /* Table header cells — laravel.com style :
    - Background quasi transparent (très léger gray-50)
    - Label medium-weight, sentence-case avec très peu de tracking
-   - Hairline solide en bas, plus marquée que les rows */
-.fi-ta-header-cell {
+   - Hairline solide en bas, plus marquée que les rows
+   - Selection (.fi-ta-selection-cell) and actions header cells in <thead>
+     share the same surface so the row reads as one continuous band. */
+.fi-ta-header-cell,
+.fi-ta-table > thead > tr > .fi-ta-selection-cell,
+.fi-ta-actions-header-cell {
     background-color: var(--fi-color-gray-50);
     font-size: 0.75rem;
     font-weight: 600;
@@ -1155,7 +1296,9 @@ body {
     padding-block: 0.75rem;
     border-bottom: 1px solid var(--fi-color-gray-200);
 }
-.dark .fi-ta-header-cell {
+.dark .fi-ta-header-cell,
+.dark .fi-ta-table > thead > tr > .fi-ta-selection-cell,
+.dark .fi-ta-actions-header-cell {
     background-color: color-mix(in oklch, var(--fi-color-gray-950) 70%, var(--fi-color-gray-900));
     color: var(--fi-color-gray-400);
     border-bottom-color: var(--fi-color-gray-800);
@@ -1370,7 +1513,7 @@ body {
     padding: 1rem 1.25rem 1.5rem;
     box-shadow:
         0 0 0 var(--ld-frame-gap) var(--ld-frame-gap-color),
-        0 0 0 calc(var(--ld-frame-gap) + 1px) color-mix(in oklch, var(--fi-color-primary-500) var(--ld-frame-mix), transparent);
+        0 0 0 calc(var(--ld-frame-gap) + 1px) var(--ld-frame-ring-color);
 }
 .dark .fi-sc-tabs.fi-contained {
     background-color: var(--fi-color-gray-900);
@@ -1450,11 +1593,11 @@ body {
 
 .fi-dropdown-header {
     padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--ld-dash-color-light);
+    border-bottom: 1px solid var(--ld-border-soft-light);
     margin-bottom: 0.375rem;
 }
 .dark .fi-dropdown-header {
-    border-bottom-color: var(--ld-dash-color-dark);
+    border-bottom-color: var(--ld-border-soft-dark);
 }
 
 .fi-dropdown-list-item {
@@ -1907,14 +2050,14 @@ body {
 
 .fi-empty-state {
     background-color: white;
-    border: 1px solid var(--ld-dash-color-light);
+    border: 1px solid var(--ld-border-soft-light);
     border-radius: var(--ld-radius);
     padding: 3rem 2rem;
     text-align: center;
 }
 .dark .fi-empty-state {
     background-color: var(--fi-color-gray-900);
-    border-color: var(--ld-dash-color-dark);
+    border-color: var(--ld-border-soft-dark);
 }
 
 .fi-empty-state-icon-bg {

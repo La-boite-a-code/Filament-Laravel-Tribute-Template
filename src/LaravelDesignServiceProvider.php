@@ -7,7 +7,6 @@ namespace Laboiteacode\LaravelDesign;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Filesystem\Filesystem;
 use Laboiteacode\LaravelDesign\Testing\TestsLaravelDesign;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -28,17 +27,17 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
+            ->hasConfigFile(static::$name)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
+                    ->endWith(function (InstallCommand $command): void {
+                        $command->call('vendor:publish', [
+                            '--tag' => 'laravel-design-theme',
+                        ]);
+                    })
                     ->askToStarRepoOnGitHub('laboiteacode/laravel-design');
             });
-
-        $configFileName = $package->shortName();
-
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
-        }
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
@@ -62,13 +61,12 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
 
         FilamentIcon::register($this->getIcons());
 
-        // Handle Stubs
+        // Filament panel theme entry-point — published to the host app
+        // by the install command (or via `vendor:publish --tag=laravel-design-theme`).
         if (app()->runningInConsole()) {
-            foreach (app(Filesystem::class)->files(__DIR__.'/../stubs/') as $file) {
-                $this->publishes([
-                    $file->getRealPath() => base_path("stubs/laravel-design/{$file->getFilename()}"),
-                ], 'laravel-design-stubs');
-            }
+            $this->publishes([
+                __DIR__.'/../stubs/theme.css' => resource_path('css/filament/admin/theme.css'),
+            ], 'laravel-design-theme');
         }
 
         // Testing

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Laboiteacode\LaravelDesign\LaravelDesignPlugin;
+use Laboiteacode\LaravelDesign\Enums\Palette;
 
 /*
  * LaravelDesign theme configuration.
@@ -11,8 +11,7 @@ use Laboiteacode\LaravelDesign\LaravelDesignPlugin;
  *
  *     ->plugin(
  *         LaravelDesignPlugin::make()
- *             ->palette('forge') // laravel | forge | cloud
- *             ->compact()
+ *             ->palette(Palette::Forge)
  *             ->maxContentWidth('full'),
  *     )
  *
@@ -28,10 +27,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | Brand palette used when ->palette() is not called explicitly.
+    | Accepts a Palette enum case, or the string value of one — useful when
+    | driving the choice from an env variable.
+    |
     | Supported values: 'laravel' (red), 'forge' (teal), 'cloud' (blue).
     |
     */
 
-    'palette' => env('LARAVEL_DESIGN_PALETTE', LaravelDesignPlugin::PALETTE_LARAVEL),
+    'palette' => env('LARAVEL_DESIGN_PALETTE', Palette::Laravel->value),
 
 ];

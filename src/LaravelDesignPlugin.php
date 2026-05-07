@@ -10,25 +10,10 @@ use Filament\Panel;
 use Filament\Support\Colors\Color;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\HtmlString;
+use Laboiteacode\LaravelDesign\Enums\Palette;
 
 class LaravelDesignPlugin implements Plugin
 {
-    public const string PALETTE_LARAVEL = 'laravel';
-
-    public const string PALETTE_FORGE = 'forge';
-
-    public const string PALETTE_CLOUD = 'cloud';
-
-    /**
-     * Brand HEX anchors per palette — sourced from the official Laravel,
-     * Forge and Cloud sites.
-     */
-    private const PALETTE_HEX = [
-        self::PALETTE_LARAVEL => '#f53003',
-        self::PALETTE_FORGE => '#18b69b',
-        self::PALETTE_CLOUD => '#0057ff',
-    ];
-
     /**
      * @var array<string, mixed>
      */
@@ -38,11 +23,9 @@ class LaravelDesignPlugin implements Plugin
 
     protected ?string $font = 'Instrument Sans';
 
-    protected bool $compact = false;
-
     protected bool $maxContentWidth = false;
 
-    protected string $palette = self::PALETTE_LARAVEL;
+    protected ?Palette $palette = null;
 
     public function getId(): string
     {
@@ -51,8 +34,10 @@ class LaravelDesignPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $palette = $this->resolvePalette();
+
         if ($this->registerColors) {
-            $panel->colors($this->resolveColors());
+            $panel->colors($this->resolveColors($palette));
         }
 
         if ($this->font !== null) {
@@ -63,14 +48,32 @@ class LaravelDesignPlugin implements Plugin
             $panel->maxContentWidth($this->maxContentWidth === true ? 'full' : $this->maxContentWidth);
         }
 
-        if ($this->palette !== self::PALETTE_LARAVEL) {
+        if ($palette !== Palette::Laravel) {
+            $cssClass = $palette->cssClass();
+
             $panel->renderHook(
                 PanelsRenderHook::BODY_START,
                 fn (): HtmlString => new HtmlString(
-                    "<script>document.body.classList.add('ld-palette-{$this->palette}');</script>"
+                    "<script>document.body.classList.add('{$cssClass}');</script>"
                 ),
             );
         }
+    }
+
+    /**
+     * Resolve the active palette: an explicit `->palette()` call wins; if
+     * not provided, fall back to the published config value (driven by the
+     * `LARAVEL_DESIGN_PALETTE` env var); if still missing, default to Laravel.
+     */
+    protected function resolvePalette(): Palette
+    {
+        if ($this->palette instanceof Palette) {
+            return $this->palette;
+        }
+
+        $configured = (string) config('laravel-design.palette', Palette::Laravel->value);
+
+        return Palette::tryFrom($configured) ?? Palette::Laravel;
     }
 
     public function boot(Panel $panel): void
@@ -92,16 +95,10 @@ class LaravelDesignPlugin implements Plugin
     }
 
     /**
-     * Pick the brand palette: laravel (default), forge, or cloud.
+     * Pick the brand palette: Laravel (default), Forge, or Cloud.
      */
-    public function palette(string $palette): static
+    public function palette(Palette $palette): static
     {
-        if (! array_key_exists($palette, self::PALETTE_HEX)) {
-            throw new \InvalidArgumentException(
-                "Unknown palette [{$palette}]. Use one of: ".implode(', ', array_keys(self::PALETTE_HEX))
-            );
-        }
-
         $this->palette = $palette;
 
         return $this;
@@ -138,21 +135,6 @@ class LaravelDesignPlugin implements Plugin
     }
 
     /**
-     * Toggle compact density (smaller paddings on cards/tables/inputs).
-     */
-    public function compact(bool $condition = true): static
-    {
-        $this->compact = $condition;
-
-        return $this;
-    }
-
-    public function isCompact(): bool
-    {
-        return $this->compact;
-    }
-
-    /**
      * Force a specific max content width on the panel. Pass `true` for
      * 'full', a string for any Filament max-width preset, or `false` to
      * keep the panel's own configuration.
@@ -169,21 +151,19 @@ class LaravelDesignPlugin implements Plugin
      *
      * @return array<string, mixed>
      */
-    protected function resolveColors(): array
+    protected function resolveColors(Palette $palette): array
     {
         if ($this->colors !== []) {
             return $this->collapseClosures($this->colors);
         }
 
-        $primaryHex = self::PALETTE_HEX[$this->palette];
-
         return [
-            'primary' => Color::hex($primaryHex),
+            'primary' => Color::hex($palette->hex()),
             'gray' => Color::Stone,
             'info' => Color::Sky,
             'success' => Color::Emerald,
             'warning' => Color::Amber,
-            'danger' => Color::hex(self::PALETTE_HEX[self::PALETTE_LARAVEL]),
+            'danger' => Color::hex(Palette::Laravel->hex()),
         ];
     }
 
