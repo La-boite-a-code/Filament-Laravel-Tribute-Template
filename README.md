@@ -192,9 +192,9 @@ Available tokens:
 | `--ld-frame-gap` | Gap between inner border and outer ring |
 | `--ld-frame-gap-color` | Gap fill colour (defaults to canvas) |
 | `--ld-frame-ring-color` | Outer ring colour |
-| `--ld-shadow-sm` / `--ld-shadow` / `--ld-shadow-lg` | Elevation scale |
+| `--ld-shadow-sm` / `--ld-shadow-lg` | Elevation scale |
 | `--ld-glow-mix` | Focus glow intensity (0–100%) |
-| `--ld-duration` / `--ld-duration-slow` | Motion timings |
+| `--ld-duration-slow` | Motion timings |
 | `--ld-ease-out` | Motion curve |
 
 

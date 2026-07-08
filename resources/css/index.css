@@ -96,9 +96,8 @@
     --ld-border-soft-light: oklch(0.918 0.005 75);
     --ld-border-soft-dark:  oklch(0.300 0.005 75);
 
-    /* Elevation — subtle / medium / heavy (per visual direction §Ombres) */
+    /* Elevation — subtle / heavy (per visual direction §Ombres) */
     --ld-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
-    --ld-shadow:    0 4px 12px -2px rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.04);
     --ld-shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.10), 0 4px 12px -2px rgb(0 0 0 / 0.06);
     /* Focus glow — see .fi-btn:focus-visible / .fi-input-wrp:focus-within for
        inlined usage. Stored as a percentage instead of a full color-mix() so
@@ -112,7 +111,6 @@
     --ld-canvas: oklch(0.982 0.003 75);
 
     /* Motion — keep ≤ 250ms (visual direction §Transitions) */
-    --ld-duration:      150ms;
     --ld-duration-slow: 200ms;
     --ld-ease-out:      cubic-bezier(0.2, 0.8, 0.2, 1);
 
