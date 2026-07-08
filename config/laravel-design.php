@@ -17,7 +17,7 @@ use Laboiteacode\LaravelDesign\Enums\Palette;
  *
  * This config file only exists for projects that prefer environment-driven
  * defaults. Publish it with:
- *   php artisan vendor:publish --tag="laravel-design-config"
+ *   php artisan vendor:publish --tag="design-config"
  */
 return [
 

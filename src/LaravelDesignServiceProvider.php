@@ -7,9 +7,9 @@ namespace Laboiteacode\LaravelDesign;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
+use Laboiteacode\LaravelDesign\Commands\InstallCommand;
 use Laboiteacode\LaravelDesign\Testing\TestsLaravelDesign;
 use Livewire\Features\SupportTesting\Testable;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -27,17 +27,22 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasConfigFile(static::$name)
-            ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->endWith(function (InstallCommand $command): void {
-                        $command->call('vendor:publish', [
-                            '--tag' => 'laravel-design-theme',
-                        ]);
-                    })
-                    ->askToStarRepoOnGitHub('laboiteacode/laravel-design');
-            });
+            ->hasConfigFile(static::$name);
+
+        // Register the branded `laravel-design:install` command. Built directly
+        // (instead of `->hasInstallCommand()`) so it uses our renamed subclass
+        // rather than spatie's short-name-derived `design:install`.
+        $installCommand = new InstallCommand($package);
+        $installCommand
+            ->publishConfigFile()
+            ->endWith(function (InstallCommand $command): void {
+                $command->call('vendor:publish', [
+                    '--tag' => 'laravel-design-theme',
+                ]);
+            })
+            ->askToStarRepoOnGitHub('laboiteacode/laravel-design');
+
+        $package->consoleCommands[] = $installCommand;
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
