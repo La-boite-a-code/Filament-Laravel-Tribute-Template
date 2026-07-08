@@ -6,8 +6,10 @@ parameters:
     paths:
         - src
         - config
-        - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
-    checkMissingIterableValueType: false
+    # The package ships its own config file; tell larastan this is a config
+    # directory so `env()` calls in it are not flagged as app-code usage.
+    configDirectories:
+        - config

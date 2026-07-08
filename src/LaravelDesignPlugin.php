@@ -23,7 +23,7 @@ class LaravelDesignPlugin implements Plugin
 
     protected ?string $font = 'Instrument Sans';
 
-    protected bool $maxContentWidth = false;
+    protected bool|string $maxContentWidth = false;
 
     protected ?Palette $palette = null;
 
