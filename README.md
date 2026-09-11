@@ -69,9 +69,8 @@ Reload the panel and the theme is live.
 
 ## Picking a palette
 
-Three brand palettes ship out of the box. Each one swaps the panel's
-`primary` color and applies a `.ld-palette-{name}` class on `<body>` so the
-CSS can remap `--fi-color-primary-*` tokens consistently.
+Three brand palettes ship out of the box. Picking one registers its
+hand-tuned 11-shade ramp as the panel's `primary` color:
 
 ```php
 use Laboiteacode\LaravelDesign\Enums\Palette;
@@ -83,7 +82,11 @@ LaravelDesignPlugin::make()->palette(Palette::Cloud)   // #0057ff
 
 Cards, callouts, sidebar active states, focus rings, primary buttons,
 notification dots and pagination chips all follow the chosen palette
-automatically — no further configuration needed.
+automatically — no further configuration needed, and no runtime JavaScript:
+the palette travels through the panel's own color registration, which
+Filament publishes on `:root` as `--primary-{shade}`. The theme's
+`--fi-color-primary-*` tokens are aliases onto those variables, so Filament's
+built-in components and LaravelDesign's own rules can never drift apart.
 
 ### Driving the palette from env
 
@@ -110,6 +113,10 @@ All options are fluent and can be chained on `LaravelDesignPlugin::make()`.
 | `maxContentWidth(bool\|string $value = true)` | `true` for `'full'`, any Filament preset string, or `false` to keep the panel's setting | `false` |
 | `colors(array $colors)` | Replace the auto-resolved color array with your own (`Color::hex()` / Filament palettes) | auto |
 | `withoutColors()` | Skip color injection entirely — keep the panel's `->colors()` untouched | enabled |
+
+Both escape hatches recolor the whole theme, not just Filament's built-in
+components: whatever `primary` and `gray` the panel ends up with is what
+LaravelDesign paints with.
 
 ### Example — full configuration
 

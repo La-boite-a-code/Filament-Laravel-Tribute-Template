@@ -8,12 +8,32 @@ use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Colors\Color;
-use Filament\View\PanelsRenderHook;
-use Illuminate\Support\HtmlString;
 use Laboiteacode\LaravelDesign\Enums\Palette;
 
 class LaravelDesignPlugin implements Plugin
 {
+    /**
+     * The warm-neutral ramp the whole stylesheet is drawn against. Registered
+     * as the panel's `gray` so Filament's own components and LaravelDesign's
+     * rules read from the same neutral — Filament emits it on `:root` as
+     * `--gray-{shade}`.
+     *
+     * @var array<int, string>
+     */
+    protected const GRAY_SHADES = [
+        50 => 'oklch(0.990 0.003 75)',
+        100 => 'oklch(0.974 0.004 75)',
+        200 => 'oklch(0.937 0.005 75)',
+        300 => 'oklch(0.882 0.006 75)',
+        400 => 'oklch(0.730 0.007 75)',
+        500 => 'oklch(0.580 0.008 75)',
+        600 => 'oklch(0.460 0.008 75)',
+        700 => 'oklch(0.355 0.007 75)',
+        800 => 'oklch(0.255 0.006 75)',
+        900 => 'oklch(0.165 0.005 75)',
+        950 => 'oklch(0.082 0.004 75)',
+    ];
+
     /**
      * @var array<string, mixed>
      */
@@ -34,10 +54,8 @@ class LaravelDesignPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $palette = $this->resolvePalette();
-
         if ($this->registerColors) {
-            $panel->colors($this->resolveColors($palette));
+            $panel->colors($this->resolveColors($this->resolvePalette()));
         }
 
         if ($this->font !== null) {
@@ -46,17 +64,6 @@ class LaravelDesignPlugin implements Plugin
 
         if ($this->maxContentWidth !== false) {
             $panel->maxContentWidth($this->maxContentWidth === true ? 'full' : $this->maxContentWidth);
-        }
-
-        if ($palette !== Palette::Laravel) {
-            $cssClass = $palette->cssClass();
-
-            $panel->renderHook(
-                PanelsRenderHook::BODY_START,
-                fn (): HtmlString => new HtmlString(
-                    "<script>document.body.classList.add('{$cssClass}');</script>"
-                ),
-            );
         }
     }
 
@@ -149,6 +156,11 @@ class LaravelDesignPlugin implements Plugin
     /**
      * Default Laravel-inspired palette resolved from the active brand.
      *
+     * The ramps are passed through verbatim — Filament re-publishes them on
+     * `:root` as `--primary-{shade}` / `--gray-{shade}`, which is exactly what
+     * the stylesheet reads. Handing it a single hex anchor instead would let
+     * Filament derive its own mid-tones and desynchronise the two.
+     *
      * @return array<string, mixed>
      */
     protected function resolveColors(Palette $palette): array
@@ -158,12 +170,12 @@ class LaravelDesignPlugin implements Plugin
         }
 
         return [
-            'primary' => Color::hex($palette->hex()),
-            'gray' => Color::Stone,
+            'primary' => $palette->shades(),
+            'gray' => static::GRAY_SHADES,
             'info' => Color::Sky,
             'success' => Color::Emerald,
             'warning' => Color::Amber,
-            'danger' => Color::hex(Palette::Laravel->hex()),
+            'danger' => Palette::Laravel->shades(),
         ];
     }
 
