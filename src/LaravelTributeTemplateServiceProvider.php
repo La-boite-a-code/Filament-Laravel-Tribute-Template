@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Laboiteacode\LaravelDesign;
+namespace LaBoiteACode\LaravelTributeTemplate;
 
 use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
-use Laboiteacode\LaravelDesign\Commands\InstallCommand;
-use Laboiteacode\LaravelDesign\Testing\TestsLaravelDesign;
+use LaBoiteACode\LaravelTributeTemplate\Commands\InstallCommand;
+use LaBoiteACode\LaravelTributeTemplate\Testing\TestsLaravelTributeTemplate;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelDesignServiceProvider extends PackageServiceProvider
+class LaravelTributeTemplateServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'laravel-design';
+    public static string $name = 'filament-laravel-tribute-template';
 
-    public static string $viewNamespace = 'laravel-design';
+    public static string $viewNamespace = 'filament-laravel-tribute-template';
 
     public function configurePackage(Package $package): void
     {
@@ -29,18 +29,18 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
         $package->name(static::$name)
             ->hasConfigFile(static::$name);
 
-        // Register the branded `laravel-design:install` command. Built directly
-        // (instead of `->hasInstallCommand()`) so it uses our renamed subclass
-        // rather than spatie's short-name-derived `design:install`.
+        // Register the branded `laravel-tribute-template:install` command. Built
+        // directly (instead of `->hasInstallCommand()`) so it uses our subclass
+        // rather than the name spatie derives from the stripped short name.
         $installCommand = new InstallCommand($package);
         $installCommand
             ->publishConfigFile()
             ->endWith(function (InstallCommand $command): void {
                 $command->call('vendor:publish', [
-                    '--tag' => 'laravel-design-theme',
+                    '--tag' => 'filament-laravel-tribute-template-theme',
                 ]);
             })
-            ->askToStarRepoOnGitHub('laboiteacode/laravel-design');
+            ->askToStarRepoOnGitHub('La-boite-a-code/Filament-Laravel-Tribute-Template');
 
         $package->consoleCommands[] = $installCommand;
 
@@ -67,29 +67,28 @@ class LaravelDesignServiceProvider extends PackageServiceProvider
         FilamentIcon::register($this->getIcons());
 
         // Filament panel theme entry-point — published to the host app
-        // by the install command (or via `vendor:publish --tag=laravel-design-theme`).
+        // by the install command (or via `vendor:publish --tag=filament-laravel-tribute-template-theme`).
         if (app()->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../stubs/theme.css' => resource_path('css/filament/admin/theme.css'),
-            ], 'laravel-design-theme');
+            ], 'filament-laravel-tribute-template-theme');
         }
 
         // Testing
-        Testable::mixin(new TestsLaravelDesign);
+        Testable::mixin(new TestsLaravelTributeTemplate);
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return 'laboiteacode/laravel-design';
+        return 'laboiteacode/filament-laravel-tribute-template';
     }
 
     /**
      * @return array<Asset>
      *
-     * The LaravelDesign theme CSS is compiled by the host application's
-     * Vite/Tailwind pipeline (the host app imports
-     * packages/laravel-design/resources/css/index.css from its own
-     * Filament theme entrypoint). No precompiled CSS is shipped here.
+     * The theme CSS is compiled by the host application's Vite/Tailwind
+     * pipeline: the published `theme.css` imports this package's
+     * `resources/css/index.css`. No precompiled CSS is shipped here.
      *
      * If you need to ship runtime JS / Alpine components later, register
      * them in this method.

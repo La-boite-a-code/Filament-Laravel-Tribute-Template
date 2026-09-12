@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use Laboiteacode\LaravelDesign\Tests\TestCase;
+use LaBoiteACode\LaravelTributeTemplate\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

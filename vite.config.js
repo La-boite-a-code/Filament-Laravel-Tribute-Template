@@ -10,7 +10,7 @@ export default defineConfig({
         rollupOptions: {
             input: 'resources/css/index.css',
             output: {
-                assetFileNames: 'laravel-design.[ext]',
+                assetFileNames: 'filament-laravel-tribute-template.[ext]',
             },
         },
     },

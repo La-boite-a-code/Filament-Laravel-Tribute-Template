@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Laboiteacode\LaravelDesign\Tests;
+namespace LaBoiteACode\LaravelTributeTemplate\Tests;
 
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
@@ -11,7 +11,7 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Foundation\Application;
-use Laboiteacode\LaravelDesign\LaravelDesignServiceProvider;
+use LaBoiteACode\LaravelTributeTemplate\LaravelTributeTemplateServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -36,7 +36,7 @@ class TestCase extends Orchestra
             NotificationsServiceProvider::class,
             WidgetsServiceProvider::class,
             FilamentServiceProvider::class,
-            LaravelDesignServiceProvider::class,
+            LaravelTributeTemplateServiceProvider::class,
         ];
     }
 

@@ -1,19 +1,18 @@
 {
-    "name": "laboiteacode/laravel-design",
+    "name": "laboiteacode/filament-laravel-tribute-template",
     "description": "A free Filament v5 theme paying tribute to the laravel.com art direction. First of a series of homage themes.",
     "keywords": [
         "laboiteacode",
         "laravel",
-        "laravel-design",
         "filament",
         "filament-theme",
         "filament-plugin",
-        "homage-theme"
+        "tribute-theme"
     ],
-    "homepage": "https://github.com/laboiteacode/laravel-design",
+    "homepage": "https://github.com/laboiteacode/filament-laravel-tribute-template",
     "support": {
-        "issues": "https://github.com/laboiteacode/laravel-design/issues",
-        "source": "https://github.com/laboiteacode/laravel-design"
+        "issues": "https://github.com/laboiteacode/filament-laravel-tribute-template/issues",
+        "source": "https://github.com/laboiteacode/filament-laravel-tribute-template"
     },
     "license": "MIT",
     "authors": [
@@ -32,10 +31,10 @@
         "larastan/larastan": "^3.0",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.0",
-        "orchestra/testbench": "^10.0",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
+        "orchestra/testbench": "^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0|^5.0",
+        "pestphp/pest-plugin-arch": "^3.0|^4.0|^5.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0|^5.0",
         "phpstan/extension-installer": "^1.3",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
@@ -43,13 +42,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Laboiteacode\\LaravelDesign\\": "src/",
-            "Laboiteacode\\LaravelDesign\\Database\\Factories\\": "database/factories/"
+            "LaBoiteACode\\LaravelTributeTemplate\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laboiteacode\\LaravelDesign\\Tests\\": "tests/"
+            "LaBoiteACode\\LaravelTributeTemplate\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -70,7 +68,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laboiteacode\\LaravelDesign\\LaravelDesignServiceProvider"
+                "LaBoiteACode\\LaravelTributeTemplate\\LaravelTributeTemplateServiceProvider"
             ]
         }
     },
