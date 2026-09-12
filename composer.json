@@ -42,8 +42,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LaBoiteACode\\LaravelTributeTemplate\\": "src/",
-            "LaBoiteACode\\LaravelTributeTemplate\\Database\\Factories\\": "database/factories/"
+            "LaBoiteACode\\LaravelTributeTemplate\\": "src/"
         }
     },
     "autoload-dev": {

@@ -44,3 +44,24 @@ it('only targets class hooks that exist in Filament', function () use ($css): vo
     expect($classes)->not->toBeEmpty()
         ->and($missing)->toBe([]);
 });
+
+it('ships no runtime JavaScript', function (): void {
+    $sources = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator(__DIR__.'/../src', FilesystemIterator::SKIP_DOTS),
+    );
+
+    $offenders = [];
+
+    /** @var SplFileInfo $file */
+    foreach ($sources as $file) {
+        if ($file->getExtension() !== 'php') {
+            continue;
+        }
+
+        if (str_contains((string) file_get_contents($file->getPathname()), '<script')) {
+            $offenders[] = $file->getFilename();
+        }
+    }
+
+    expect($offenders)->toBe([]);
+});
