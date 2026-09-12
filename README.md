@@ -6,8 +6,8 @@
 > three brand palettes: Laravel, Forge and Cloud.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/laboiteacode/filament-laravel-tribute-template.svg?style=flat-square)](https://packagist.org/packages/laboiteacode/filament-laravel-tribute-template)
-[![Tests](https://img.shields.io/github/actions/workflow/status/la-boite-a-code/filament-laravel-tribute-template/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/la-boite-a-code/filament-laravel-tribute-template/actions/workflows/run-tests.yml)
-[![Static Analysis](https://img.shields.io/github/actions/workflow/status/la-boite-a-code/filament-laravel-tribute-template/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/la-boite-a-code/filament-laravel-tribute-template/actions/workflows/phpstan.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/la-boite-a-code/filament-laravel-tribute-template/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/la-boite-a-code/filament-laravel-tribute-template/actions/workflows/tests.yml)
+[![Static Analysis](https://img.shields.io/github/actions/workflow/status/la-boite-a-code/filament-laravel-tribute-template/static-analysis.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/la-boite-a-code/filament-laravel-tribute-template/actions/workflows/static-analysis.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/laboiteacode/filament-laravel-tribute-template.svg?style=flat-square)](https://packagist.org/packages/laboiteacode/filament-laravel-tribute-template)
 [![License](https://img.shields.io/packagist/l/laboiteacode/filament-laravel-tribute-template.svg?style=flat-square)](LICENSE.md)
 
@@ -101,6 +101,24 @@ badge and link shades by contrast, and a generated scale drifts away from
 the brand: Laravel red turns pink, Forge green loses its dark text. Cards,
 callouts, sidebar active states, focus rings, primary buttons, notification
 dots and pagination chips all follow the chosen palette automatically.
+
+### Laravel
+
+| Light | Dark |
+| --- | --- |
+| ![Laravel palette, light mode](art/palette-laravel-light.png) | ![Laravel palette, dark mode](art/palette-laravel-dark.png) |
+
+### Forge
+
+| Light | Dark |
+| --- | --- |
+| ![Forge palette, light mode](art/palette-forge-light.png) | ![Forge palette, dark mode](art/palette-forge-dark.png) |
+
+### Cloud
+
+| Light | Dark |
+| --- | --- |
+| ![Cloud palette, light mode](art/palette-cloud-light.png) | ![Cloud palette, dark mode](art/palette-cloud-dark.png) |
 
 Override individual slots on top of a palette:
 

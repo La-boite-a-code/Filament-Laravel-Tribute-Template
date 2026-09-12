@@ -2,6 +2,36 @@
 
 All notable changes to `filament-laravel-tribute-template` will be documented in this file.
 
+## [1.0.1] - 2026-09-12
+
+### Fixed
+
+- Primary buttons pinned their own background to `primary-500` with a white
+  label, which bypassed Filament's contrast pairing and failed WCAG AA on all
+  three palettes, down to 2.45:1 on Forge. The fill and the label are left to
+  Filament again; the theme only adds the flat border and the lift, both
+  derived from the fill. The six palette and mode combinations now measure
+  between 4.66:1 and 5.51:1.
+- Darkened the Forge `600` shade so the dark-mode button Filament picks from it
+  clears 4.5:1 against its white label.
+
+### Added
+
+- Six screenshots in the README, one per palette and colour mode.
+- `SECURITY.md` with a private reporting address.
+- Dependabot covering Composer, npm and GitHub Actions, with a seven-day
+  cooldown before a new release is proposed.
+
+### Changed
+
+- Workflows rebuilt in three jobs (tests, static analysis, code style), with
+  every action pinned to a full commit SHA, read-only token permissions, job
+  timeouts, `composer validate --strict` and `composer audit`. The matrix runs
+  PHP 8.2 to 8.5 against Laravel 12 and 13, and a job compiles the stylesheet.
+- The release archive now excludes the press kit, the security policy and the
+  build tooling, keeping only the sources, the config, the stylesheet and the
+  published stub.
+
 ## [1.0.0] - 2026-09-12
 
 ### Changed

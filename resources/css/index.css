@@ -564,28 +564,36 @@ h1.fi-header-heading::after {
 /* Primary — laravel.com CTA : couleur pleine (docs §Effets : pas de gradient
    sur boutons). Légère bordure brand-darken pour ancrer le bouton, ombre
    subtile, hover via background-color, pas de translation Y. */
+/*
+| The fill and the label colour are left to Filament, which pairs them by
+| contrast (`--bg` / `--text`, and their dark twins) and guarantees a legible
+| label on any palette. Pinning them to a fixed shade here would drop the
+| Forge label to 2.45:1 against its own background. The theme only adds the
+| flat hairline border and the subtle lift, both derived from the fill so
+| they follow the palette.
+*/
 .fi-btn.fi-color-primary {
-    background-color: var(--primary-500);
     background-image: none;
-    color: white;
-    border: 1px solid var(--primary-600);
+    border: 1px solid color-mix(in oklch, var(--bg) 80%, black);
     box-shadow:
         0 1px 1px 0 rgba(0, 0, 0, 0.04),
-        0 1px 2px 0 color-mix(in oklch, var(--primary-700) 18%, transparent);
+        0 1px 2px 0 color-mix(in oklch, var(--bg) 30%, transparent);
+}
+.dark .fi-btn.fi-color-primary {
+    border-color: color-mix(in oklch, var(--dark-bg) 80%, black);
+    box-shadow:
+        0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 1px 2px 0 color-mix(in oklch, var(--dark-bg) 30%, transparent);
 }
 .fi-btn.fi-color-primary:hover {
-    background-color: var(--primary-600);
-    border-color: var(--primary-700);
     box-shadow:
         0 1px 2px 0 rgba(0, 0, 0, 0.06),
-        0 2px 4px -1px color-mix(in oklch, var(--primary-700) 22%, transparent);
+        0 2px 4px -1px color-mix(in oklch, var(--bg) 38%, transparent);
 }
 .fi-btn.fi-color-primary:active {
-    background-color: var(--primary-700);
-    border-color: var(--primary-800);
     box-shadow:
         inset 0 1px 1px 0 rgba(0, 0, 0, 0.10),
-        0 1px 1px 0 color-mix(in oklch, var(--primary-700) 14%, transparent);
+        0 1px 1px 0 color-mix(in oklch, var(--bg) 24%, transparent);
 }
 
 /* Danger — quiet by default (soft red border), filled red on hover. P1 = solid. */

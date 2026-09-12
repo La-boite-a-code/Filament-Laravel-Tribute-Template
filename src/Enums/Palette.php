@@ -42,6 +42,9 @@ enum Palette: string
 
     /**
      * The shade the brand colour is pinned on inside the scale.
+     *
+     * Shades that Filament may pick as a button background are additionally
+     * tuned to clear 4.5:1 against the label it pairs them with.
      */
     public function brandShade(): int
     {
@@ -115,7 +118,7 @@ enum Palette: string
                 300 => 'oklch(0.855 0.138 174.292)',
                 400 => 'oklch(0.836 0.158 174.292)',
                 500 => 'oklch(0.704 0.14 174.292)',
-                600 => 'oklch(0.6 0.118 174.292)',
+                600 => 'oklch(0.54 0.118 174.292)',
                 700 => 'oklch(0.511 0.096 174.292)',
                 800 => 'oklch(0.437 0.078 174.292)',
                 900 => 'oklch(0.386 0.063 174.292)',
