@@ -1,0 +1,111 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+:root{
+  --red-400:#FF5A2B; --red-500:#F53003; --red-600:#E70000; --red-700:#C21500;
+  --s-50:#FAFAF9; --s-100:#F5F5F4; --s-200:#E7E5E4; --s-300:#D6D3D1;
+  --s-400:#A8A29E; --s-500:#78716C; --s-700:#44403C; --s-950:#0C0A09;
+  --dash:#E7E5E4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1280px;height:720px;overflow:hidden}
+body{
+  font-family:'Instrument Sans',ui-sans-serif,system-ui,sans-serif;
+  background:
+    radial-gradient(ellipse 90% 60% at 12% -10%, rgba(245,48,3,.10), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(245,48,3,.07), transparent 65%),
+    #FBFAF9;
+  position:relative; -webkit-font-smoothing:antialiased;
+}
+.left{position:absolute;left:76px;top:50%;transform:translateY(-50%);width:470px}
+.eyebrow{display:flex;align-items:center;gap:9px;margin-bottom:26px}
+.eyebrow .dot{width:9px;height:9px;border-radius:50%;background:var(--red-500);
+  box-shadow:0 0 0 3.5px rgba(245,48,3,.18)}
+.eyebrow span{font-size:12.5px;font-weight:700;letter-spacing:.155em;
+  text-transform:uppercase;color:var(--red-600)}
+h1{font-size:76px;font-weight:700;letter-spacing:-.042em;line-height:.97;
+  color:#0A0A09;margin-bottom:26px}
+.sub{font-size:19.5px;line-height:1.52;color:var(--s-500);font-weight:400;max-width:430px}
+.hl{background:rgba(245,48,3,.13);color:var(--s-950);font-weight:500;
+  padding:1px 5px;border-radius:3px;box-decoration-break:clone}
+
+/* ---------- UI mock ---------- */
+.mock{position:absolute;left:596px;top:46px;width:760px;height:628px;
+  background:#fff;border-radius:14px;
+  box-shadow:0 2px 4px rgba(12,10,9,.04), 0 24px 60px -12px rgba(12,10,9,.16), 0 0 0 1px var(--s-200);
+  overflow:hidden;padding:26px 28px}
+.mock-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;padding-right:104px}
+.crumb{font-size:11.5px;color:var(--s-400);margin-bottom:7px;letter-spacing:.01em}
+.mock-title{font-size:27px;font-weight:700;letter-spacing:-.03em;color:#0A0A09}
+.cta{background:linear-gradient(180deg,#FB4A1E,var(--red-600));color:#fff;
+  font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24), 0 1px 2px rgba(194,21,0,.32)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:20px}
+.card{background:#fff;border-radius:10px;box-shadow:0 0 0 1px var(--s-200);
+  outline:1px dashed var(--dash);outline-offset:-3px;padding:15px 17px}
+.k{font-size:9.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--s-500);margin-bottom:8px}
+.v{font-size:25px;font-weight:700;letter-spacing:-.032em;color:#0A0A09}
+
+.tabs{display:inline-flex;gap:2px;padding:4px;border-radius:999px;
+  background:var(--s-100);box-shadow:0 0 0 1px var(--s-200);margin-bottom:18px}
+.tab{font-size:12.5px;font-weight:600;color:var(--s-500);padding:7px 15px;border-radius:999px}
+.tab.on{background:#fff;color:var(--red-700);box-shadow:0 1px 2px rgba(0,0,0,.06),0 0 0 1px var(--s-200)}
+
+.table{background:#fff;border-radius:10px;box-shadow:0 0 0 1px var(--s-200);
+  outline:1px dashed var(--dash);outline-offset:-3px;overflow:hidden}
+.th,.tr{display:grid;grid-template-columns:1.05fr 1.5fr .95fr .75fr;align-items:center}
+.th{background:var(--s-50);padding:11px 18px;box-shadow:inset 0 -1px 0 var(--s-200)}
+.th div{font-size:9.5px;font-weight:700;letter-spacing:.115em;text-transform:uppercase;color:var(--s-500)}
+.tr{padding:12px 18px;font-size:13px;color:var(--s-700)}
+.tr + .tr{border-top:1px dashed var(--dash)}
+.mono{font-variant-numeric:tabular-nums;color:#0A0A09;font-weight:500}
+.badge{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.045em;
+  text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.b-green{background:#ECFDF5;color:#047857;box-shadow:inset 0 0 0 1px rgba(4,120,87,.14)}
+.b-red{background:#FEF2F2;color:var(--red-700);box-shadow:inset 0 0 0 1px rgba(194,21,0,.14)}
+.b-blue{background:#EFF6FF;color:#1D4ED8;box-shadow:inset 0 0 0 1px rgba(29,78,216,.14)}
+.b-amber{background:#FFFBEB;color:#B45309;box-shadow:inset 0 0 0 1px rgba(180,83,9,.14)}
+.right{text-align:right}
+</style></head><body>
+
+<div class="left">
+  <div class="eyebrow"><i class="dot"></i><span>Filament Theme</span></div>
+  <h1>Laravel&nbsp;Tribute<br>Template</h1>
+  <p class="sub">The <span class="hl">laravel.com look</span> on every Filament
+  component, in three official palettes.</p>
+</div>
+
+<div class="mock">
+  <div class="mock-head">
+    <div>
+      <div class="crumb">Orders &nbsp;›&nbsp; List</div>
+      <div class="mock-title">Orders</div>
+    </div>
+    <div class="cta">New order</div>
+  </div>
+
+  <div class="stats">
+    <div class="card"><div class="k">Orders</div><div class="v">1 000</div></div>
+    <div class="card"><div class="k">Open orders</div><div class="v">146</div></div>
+    <div class="card"><div class="k">Average price</div><div class="v">1 026.97</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on">All</div><div class="tab">New</div>
+    <div class="tab">Processing</div><div class="tab">Shipped</div>
+  </div>
+
+  <div class="table">
+    <div class="th"><div>Number</div><div>Customer</div><div>Status</div><div class="right">Total</div></div>
+    <div class="tr"><div class="mono">OR795477</div><div>Davion Moen</div><div><span class="badge b-green">Shipped</span></div><div class="right mono">520.38</div></div>
+    <div class="tr"><div class="mono">OR707402</div><div>Ms. Erna Boyer</div><div><span class="badge b-blue">New</span></div><div class="right mono">2 436.80</div></div>
+    <div class="tr"><div class="mono">OR863613</div><div>Meghan Lynch</div><div><span class="badge b-amber">Processing</span></div><div class="right mono">1 465.15</div></div>
+    <div class="tr"><div class="mono">OR695721</div><div>Dr. Tania Koss</div><div><span class="badge b-green">Shipped</span></div><div class="right mono">1 184.21</div></div>
+    <div class="tr"><div class="mono">OR119723</div><div>Victoria Connelly</div><div><span class="badge b-red">Cancelled</span></div><div class="right mono">960.03</div></div>
+    <div class="tr"><div class="mono">OR021228</div><div>Mckayla Lockman</div><div><span class="badge b-green">Shipped</span></div><div class="right mono">1 130.26</div></div>
+    <div class="tr"><div class="mono">OR157289</div><div>Mr. Noe Nader</div><div><span class="badge b-blue">New</span></div><div class="right mono">1 494.49</div></div>
+    <div class="tr"><div class="mono">OR994770</div><div>Betsy Hodkiewicz</div><div><span class="badge b-amber">Processing</span></div><div class="right mono">1 115.24</div></div>
+  </div>
+</div>
+</body></html>

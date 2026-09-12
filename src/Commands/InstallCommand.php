@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Laboiteacode\LaravelDesign\Commands;
+namespace LaBoiteACode\LaravelTributeTemplate\Commands;
 
 use Spatie\LaravelPackageTools\Commands\InstallCommand as BaseInstallCommand;
 use Spatie\LaravelPackageTools\Package;
 
 /**
- * Branded install command for LaravelDesign.
+ * Branded install command.
  *
  * Spatie's base command derives its name from the package "short name"
- * (`Str::after($name, 'laravel-')`), which turns `laravel-design` into a
- * generic `design:install`. This subclass keeps every published step of the
- * base command while restoring the branded `laravel-design:install` name and
+ * (`Str::after($name, 'laravel-')`), which would turn this package's name
+ * into a generic `tribute-template:install`. This subclass keeps every published step of the
+ * base command while restoring the branded `laravel-tribute-template:install` name and
  * making it visible in `php artisan list`.
  */
 class InstallCommand extends BaseInstallCommand
@@ -22,7 +22,7 @@ class InstallCommand extends BaseInstallCommand
     {
         parent::__construct($package);
 
-        $this->setName('laravel-design:install');
+        $this->setName('laravel-tribute-template:install');
         $this->setHidden(false);
     }
 
@@ -41,6 +41,6 @@ class InstallCommand extends BaseInstallCommand
             ->processStarRepo()
             ->processEndWith();
 
-        $this->info('LaravelDesign has been installed!');
+        $this->info('Filament Laravel Tribute Template has been installed!');
     }
 }

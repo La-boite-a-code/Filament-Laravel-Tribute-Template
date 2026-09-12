@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| LaravelDesign — Filament v5 theme inspired by laravel.com
+| LaravelTributeTemplate — Filament v5 theme inspired by laravel.com
 |--------------------------------------------------------------------------
 |
 | Visual language (per docs/A-Product-Brief/visual-direction.md):
@@ -14,6 +14,13 @@
 |   • Forms avec eyebrow uppercase, red required mark, fieldsets bordés
 |   • Notifications, callouts, empty states polishés
 |   • Code blocks sombres même en light mode
+|
+| Colour contract
+|   Every colour below reads Filament's own palette variables — --primary-*,
+|   --gray-*, --danger-*, --success-*, --warning-*, --info-* — which the panel
+|   emits from ->colors(). The theme therefore follows whichever palette the
+|   plugin registers (Laravel, Forge, Cloud or a custom one) without shipping
+|   a second copy of any shade scale.
 |
 | All overrides live OUTSIDE @layer to win the cascade against
 | Filament's own component layer.
@@ -32,46 +39,6 @@
    ========================================================================== */
 
 @theme {
-    /* Palette LARAVEL — rouge signature (default).
-       Anchor: #f53003 / oklch(~0.66 0.250 25). */
-    --color-laravel-50:  oklch(0.971 0.018 22);
-    --color-laravel-100: oklch(0.940 0.040 22);
-    --color-laravel-200: oklch(0.892 0.080 22);
-    --color-laravel-300: oklch(0.820 0.140 23);
-    --color-laravel-400: oklch(0.730 0.205 24);
-    --color-laravel-500: oklch(0.660 0.250 25);
-    --color-laravel-600: oklch(0.590 0.245 26);
-    --color-laravel-700: oklch(0.510 0.215 27);
-    --color-laravel-800: oklch(0.430 0.180 27);
-    --color-laravel-900: oklch(0.370 0.140 26);
-    --color-laravel-950: oklch(0.250 0.090 26);
-
-    /* Palette FORGE — teal accent (#18b69b) sur olive-dark (#151715). */
-    --color-forge-50:  oklch(0.971 0.020 175);
-    --color-forge-100: oklch(0.940 0.040 175);
-    --color-forge-200: oklch(0.892 0.075 175);
-    --color-forge-300: oklch(0.820 0.100 175);
-    --color-forge-400: oklch(0.740 0.115 175);
-    --color-forge-500: oklch(0.660 0.115 175);
-    --color-forge-600: oklch(0.590 0.110 175);
-    --color-forge-700: oklch(0.510 0.100 175);
-    --color-forge-800: oklch(0.430 0.085 175);
-    --color-forge-900: oklch(0.370 0.060 175);
-    --color-forge-950: oklch(0.250 0.040 175);
-
-    /* Palette CLOUD — blue électrique (#0057ff). */
-    --color-cloud-50:  oklch(0.971 0.018 263);
-    --color-cloud-100: oklch(0.940 0.040 263);
-    --color-cloud-200: oklch(0.880 0.090 263);
-    --color-cloud-300: oklch(0.770 0.155 263);
-    --color-cloud-400: oklch(0.640 0.215 263);
-    --color-cloud-500: oklch(0.510 0.265 263);
-    --color-cloud-600: oklch(0.450 0.255 263);
-    --color-cloud-700: oklch(0.390 0.225 263);
-    --color-cloud-800: oklch(0.320 0.180 263);
-    --color-cloud-900: oklch(0.260 0.140 263);
-    --color-cloud-950: oklch(0.180 0.090 263);
-
     --color-warm-50:  oklch(0.990 0.003 75);
     --color-warm-100: oklch(0.974 0.004 75);
     --color-warm-200: oklch(0.937 0.005 75);
@@ -85,34 +52,34 @@
     --color-warm-950: oklch(0.105 0.003 75);
 
     /* Geometry — radius modérés (P2) : 6/8/12px max, jamais cute */
-    --ld-radius-xs: 0.25rem;        /* 4px  — tiny chips, checkboxes */
-    --ld-radius-sm: 0.375rem;       /* 6px  — buttons, inputs, page items */
-    --ld-radius:    0.5rem;         /* 8px  — sections, cards, callouts */
-    --ld-radius-lg: 0.75rem;        /* 12px — modals, dropdowns */
-    --ld-pill:      9999px;
+    --ltt-radius-xs: 0.25rem;        /* 4px  — tiny chips, checkboxes */
+    --ltt-radius-sm: 0.375rem;       /* 6px  — buttons, inputs, page items */
+    --ltt-radius:    0.5rem;         /* 8px  — sections, cards, callouts */
+    --ltt-radius-lg: 0.75rem;        /* 12px — modals, dropdowns */
+    --ltt-pill:      9999px;
 
     /* Strokes — solid 1px partout (P1), warm-neutral en light/dark */
-    --ld-stroke: 1px;
-    --ld-border-soft-light: oklch(0.918 0.005 75);
-    --ld-border-soft-dark:  oklch(0.300 0.005 75);
+    --ltt-stroke: 1px;
+    --ltt-border-soft-light: oklch(0.918 0.005 75);
+    --ltt-border-soft-dark:  oklch(0.300 0.005 75);
 
     /* Elevation — subtle / heavy (per visual direction §Ombres) */
-    --ld-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
-    --ld-shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.10), 0 4px 12px -2px rgb(0 0 0 / 0.06);
+    --ltt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --ltt-shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.10), 0 4px 12px -2px rgb(0 0 0 / 0.06);
     /* Focus glow — see .fi-btn:focus-visible / .fi-input-wrp:focus-within for
        inlined usage. Stored as a percentage instead of a full color-mix() so
-       `var(--fi-color-primary-500)` resolves at the consumer scope and follows
-       `.ld-palette-{forge,cloud}`. */
-    --ld-glow-mix: 22%;
+       `var(--primary-500)` resolves at the consumer scope and follows the
+       palette registered on the panel. */
+    --ltt-glow-mix: 22%;
 
     /* Canvas wash — body background + frame-gap colour. Just a hair
        darker than pure white so sections lift off the page without
        graying out the layout. */
-    --ld-canvas: oklch(0.982 0.003 75);
+    --ltt-canvas: oklch(0.982 0.003 75);
 
     /* Motion — keep ≤ 250ms (visual direction §Transitions) */
-    --ld-duration-slow: 200ms;
-    --ld-ease-out:      cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ltt-duration-slow: 200ms;
+    --ltt-ease-out:      cubic-bezier(0.2, 0.8, 0.2, 1);
 
     --font-sans: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-display: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -120,128 +87,7 @@
 }
 
 /* ==========================================================================
-   2. FILAMENT COLOR SCALE OVERRIDES
-   ========================================================================== */
-
-:root {
-    --fi-color-primary-50:  oklch(0.971 0.018 22);
-    --fi-color-primary-100: oklch(0.940 0.040 22);
-    --fi-color-primary-200: oklch(0.892 0.080 22);
-    --fi-color-primary-300: oklch(0.820 0.140 23);
-    --fi-color-primary-400: oklch(0.730 0.205 24);
-    --fi-color-primary-500: oklch(0.660 0.250 25);
-    --fi-color-primary-600: oklch(0.590 0.245 26);
-    --fi-color-primary-700: oklch(0.510 0.215 27);
-    --fi-color-primary-800: oklch(0.430 0.180 27);
-    --fi-color-primary-900: oklch(0.370 0.140 26);
-    --fi-color-primary-950: oklch(0.250 0.090 26);
-
-    --fi-color-gray-50:  oklch(0.990 0.003 75);
-    --fi-color-gray-100: oklch(0.974 0.004 75);
-    --fi-color-gray-200: oklch(0.937 0.005 75);
-    --fi-color-gray-300: oklch(0.882 0.006 75);
-    --fi-color-gray-400: oklch(0.730 0.007 75);
-    --fi-color-gray-500: oklch(0.580 0.008 75);
-    --fi-color-gray-600: oklch(0.460 0.008 75);
-    --fi-color-gray-700: oklch(0.355 0.007 75);
-    --fi-color-gray-800: oklch(0.255 0.006 75);
-    --fi-color-gray-900: oklch(0.165 0.005 75);
-    --fi-color-gray-950: oklch(0.082 0.004 75);
-
-    /*
-    | Filament v5 exposes semantic palettes (success / warning / danger / info)
-    | as bare `--{name}-{shade}` variables — no `--fi-color-` prefix. Alias them
-    | here so authored CSS can reference one consistent naming scheme
-    | (`--fi-color-success-500`) regardless of where the value originates.
-    */
-    --fi-color-success-50:  var(--success-50);
-    --fi-color-success-100: var(--success-100);
-    --fi-color-success-200: var(--success-200);
-    --fi-color-success-300: var(--success-300);
-    --fi-color-success-400: var(--success-400);
-    --fi-color-success-500: var(--success-500);
-    --fi-color-success-600: var(--success-600);
-    --fi-color-success-700: var(--success-700);
-    --fi-color-success-800: var(--success-800);
-    --fi-color-success-900: var(--success-900);
-    --fi-color-success-950: var(--success-950);
-
-    --fi-color-warning-50:  var(--warning-50);
-    --fi-color-warning-100: var(--warning-100);
-    --fi-color-warning-200: var(--warning-200);
-    --fi-color-warning-300: var(--warning-300);
-    --fi-color-warning-400: var(--warning-400);
-    --fi-color-warning-500: var(--warning-500);
-    --fi-color-warning-600: var(--warning-600);
-    --fi-color-warning-700: var(--warning-700);
-    --fi-color-warning-800: var(--warning-800);
-    --fi-color-warning-900: var(--warning-900);
-    --fi-color-warning-950: var(--warning-950);
-
-    --fi-color-danger-50:  var(--danger-50);
-    --fi-color-danger-100: var(--danger-100);
-    --fi-color-danger-200: var(--danger-200);
-    --fi-color-danger-300: var(--danger-300);
-    --fi-color-danger-400: var(--danger-400);
-    --fi-color-danger-500: var(--danger-500);
-    --fi-color-danger-600: var(--danger-600);
-    --fi-color-danger-700: var(--danger-700);
-    --fi-color-danger-800: var(--danger-800);
-    --fi-color-danger-900: var(--danger-900);
-    --fi-color-danger-950: var(--danger-950);
-
-    --fi-color-info-50:  var(--info-50);
-    --fi-color-info-100: var(--info-100);
-    --fi-color-info-200: var(--info-200);
-    --fi-color-info-300: var(--info-300);
-    --fi-color-info-400: var(--info-400);
-    --fi-color-info-500: var(--info-500);
-    --fi-color-info-600: var(--info-600);
-    --fi-color-info-700: var(--info-700);
-    --fi-color-info-800: var(--info-800);
-    --fi-color-info-900: var(--info-900);
-    --fi-color-info-950: var(--info-950);
-}
-
-/* ==========================================================================
-   2b. PALETTE SWITCHERS
-   ==========================================================================
-|
-| Apply one of these classes to <body> (or the panel root) to swap the
-| Filament primary color from Laravel red (default) to Forge teal or Cloud
-| blue. Wired in via the LaravelDesignPlugin's panel hook.
-*/
-
-.ld-palette-forge {
-    --fi-color-primary-50:  oklch(0.971 0.020 175);
-    --fi-color-primary-100: oklch(0.940 0.040 175);
-    --fi-color-primary-200: oklch(0.892 0.075 175);
-    --fi-color-primary-300: oklch(0.820 0.100 175);
-    --fi-color-primary-400: oklch(0.740 0.115 175);
-    --fi-color-primary-500: oklch(0.660 0.115 175);
-    --fi-color-primary-600: oklch(0.590 0.110 175);
-    --fi-color-primary-700: oklch(0.510 0.100 175);
-    --fi-color-primary-800: oklch(0.430 0.085 175);
-    --fi-color-primary-900: oklch(0.370 0.060 175);
-    --fi-color-primary-950: oklch(0.250 0.040 175);
-}
-
-.ld-palette-cloud {
-    --fi-color-primary-50:  oklch(0.971 0.018 263);
-    --fi-color-primary-100: oklch(0.940 0.040 263);
-    --fi-color-primary-200: oklch(0.880 0.090 263);
-    --fi-color-primary-300: oklch(0.770 0.155 263);
-    --fi-color-primary-400: oklch(0.640 0.215 263);
-    --fi-color-primary-500: oklch(0.510 0.265 263);
-    --fi-color-primary-600: oklch(0.450 0.255 263);
-    --fi-color-primary-700: oklch(0.390 0.225 263);
-    --fi-color-primary-800: oklch(0.320 0.180 263);
-    --fi-color-primary-900: oklch(0.260 0.140 263);
-    --fi-color-primary-950: oklch(0.180 0.090 263);
-}
-
-/* ==========================================================================
-   3. GLOBAL POLISH
+   2. GLOBAL POLISH
    ========================================================================== */
 
 body {
@@ -251,19 +97,19 @@ body {
 }
 
 ::selection {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 28%, transparent);
-    color: var(--fi-color-gray-900);
+    background-color: color-mix(in oklch, var(--primary-500) 28%, transparent);
+    color: var(--gray-900);
 }
-.dark ::selection { color: var(--fi-color-gray-50); }
+.dark ::selection { color: var(--gray-50); }
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--fi-color-gray-300) transparent;
+    scrollbar-color: var(--gray-300) transparent;
 }
-.dark * { scrollbar-color: var(--fi-color-gray-700) transparent; }
+.dark * { scrollbar-color: var(--gray-700) transparent; }
 
 /* ==========================================================================
-   4. LAYOUT — peach gradient canvas, frosted topbar, refined sidebar
+   3. LAYOUT — peach gradient canvas, frosted topbar, refined sidebar
    ========================================================================== */
 
 /*
@@ -287,44 +133,44 @@ body {
     background:
         radial-gradient(
             ellipse 90% 40% at 15% -10%,
-            color-mix(in oklch, var(--fi-color-primary-500) 6%, transparent),
+            color-mix(in oklch, var(--primary-500) 6%, transparent),
             transparent 55%
         ),
         radial-gradient(
             ellipse 70% 35% at 95% 8%,
-            color-mix(in oklch, var(--fi-color-primary-500) 4%, transparent),
+            color-mix(in oklch, var(--primary-500) 4%, transparent),
             transparent 60%
         ),
         radial-gradient(
             ellipse 80% 50% at 80% 95%,
-            color-mix(in oklch, var(--fi-color-primary-500) 3%, transparent),
+            color-mix(in oklch, var(--primary-500) 3%, transparent),
             transparent 65%
         ),
-        var(--ld-canvas);
+        var(--ltt-canvas);
     background-attachment: fixed;
     min-height: 100vh;
 }
 .dark {
-    --ld-canvas: var(--fi-color-gray-950);
+    --ltt-canvas: var(--gray-950);
 }
 .dark .fi-body {
     background:
         radial-gradient(
             ellipse 90% 40% at 15% -10%,
-            color-mix(in oklch, var(--fi-color-primary-500) 12%, transparent),
+            color-mix(in oklch, var(--primary-500) 12%, transparent),
             transparent 55%
         ),
         radial-gradient(
             ellipse 70% 35% at 95% 8%,
-            color-mix(in oklch, var(--fi-color-primary-500) 8%, transparent),
+            color-mix(in oklch, var(--primary-500) 8%, transparent),
             transparent 60%
         ),
         radial-gradient(
             ellipse 80% 50% at 80% 95%,
-            color-mix(in oklch, var(--fi-color-primary-500) 6%, transparent),
+            color-mix(in oklch, var(--primary-500) 6%, transparent),
             transparent 65%
         ),
-        var(--ld-canvas);
+        var(--ltt-canvas);
     background-attachment: fixed;
 }
 
@@ -337,7 +183,7 @@ body {
 
 .fi-topbar {
     background-color: white;
-    border-bottom: 1px solid var(--ld-border-soft-light);
+    border-bottom: 1px solid var(--ltt-border-soft-light);
     box-shadow: none;
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
@@ -350,8 +196,8 @@ body {
     --tw-shadow: 0 0 #0000;
 }
 .dark .fi-topbar {
-    background-color: var(--fi-color-gray-900);
-    border-bottom-color: var(--ld-border-soft-dark);
+    background-color: var(--gray-900);
+    border-bottom-color: var(--ltt-border-soft-dark);
 }
 
 /*
@@ -364,21 +210,21 @@ body {
 
 .fi-sidebar {
     background-color: white;
-    border-right: 1px solid var(--ld-border-soft-light);
+    border-right: 1px solid var(--ltt-border-soft-light);
 }
 .dark .fi-sidebar {
-    background-color: var(--fi-color-gray-900);
-    border-right-color: var(--ld-border-soft-dark);
+    background-color: var(--gray-900);
+    border-right-color: var(--ltt-border-soft-dark);
 }
 
 .fi-sidebar-header {
     padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--ld-border-soft-light);
+    border-bottom: 1px solid var(--ltt-border-soft-light);
     background-color: white;
 }
 .dark .fi-sidebar-header {
-    background-color: var(--fi-color-gray-900);
-    border-bottom-color: var(--ld-border-soft-dark);
+    background-color: var(--gray-900);
+    border-bottom-color: var(--ltt-border-soft-dark);
 }
 
 .fi-sidebar-nav {
@@ -395,12 +241,12 @@ body {
 }
 
 .fi-sidebar-group + .fi-sidebar-group {
-    border-top: 1px solid var(--ld-border-soft-light);
+    border-top: 1px solid var(--ltt-border-soft-light);
     margin-top: 0.375rem;
     padding-top: 0.625rem;
 }
 .dark .fi-sidebar-group + .fi-sidebar-group {
-    border-top-color: var(--ld-border-soft-dark);
+    border-top-color: var(--ltt-border-soft-dark);
 }
 
 .fi-sidebar-group-label {
@@ -408,7 +254,7 @@ body {
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     padding-inline: 0.75rem;
     margin-bottom: 0.25rem;
 }
@@ -418,7 +264,7 @@ body {
 }
 
 .fi-sidebar-item .fi-sidebar-item-btn {
-    border-radius: var(--ld-radius-sm);
+    border-radius: var(--ltt-radius-sm);
     margin-inline: 0.375rem;
     padding-block: 0.375rem;
     padding-inline: 0.625rem;
@@ -434,37 +280,37 @@ body {
 }
 
 .fi-sidebar-item:not(.fi-active) .fi-sidebar-item-btn:hover {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 8%, transparent);
-    color: var(--fi-color-primary-700);
+    background-color: color-mix(in oklch, var(--primary-500) 8%, transparent);
+    color: var(--primary-700);
 }
 .dark .fi-sidebar-item:not(.fi-active) .fi-sidebar-item-btn:hover {
-    color: var(--fi-color-primary-300);
+    color: var(--primary-300);
 }
 
 .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
     background: linear-gradient(
         90deg,
-        color-mix(in oklch, var(--fi-color-primary-500) 14%, transparent),
-        color-mix(in oklch, var(--fi-color-primary-500) 4%, transparent) 70%,
+        color-mix(in oklch, var(--primary-500) 14%, transparent),
+        color-mix(in oklch, var(--primary-500) 4%, transparent) 70%,
         transparent 100%
     );
-    color: var(--fi-color-primary-700);
+    color: var(--primary-700);
     font-weight: 600;
     box-shadow:
-        inset 3px 0 0 0 var(--fi-color-primary-500),
-        inset 0 0 0 1px color-mix(in oklch, var(--fi-color-primary-500) 12%, transparent);
+        inset 3px 0 0 0 var(--primary-500),
+        inset 0 0 0 1px color-mix(in oklch, var(--primary-500) 12%, transparent);
 }
 .dark .fi-sidebar-item.fi-active .fi-sidebar-item-btn {
-    color: var(--fi-color-primary-300);
+    color: var(--primary-300);
     background: linear-gradient(
         90deg,
-        color-mix(in oklch, var(--fi-color-primary-500) 22%, transparent),
-        color-mix(in oklch, var(--fi-color-primary-500) 8%, transparent) 70%,
+        color-mix(in oklch, var(--primary-500) 22%, transparent),
+        color-mix(in oklch, var(--primary-500) 8%, transparent) 70%,
         transparent 100%
     );
 }
 .fi-sidebar-item.fi-active .fi-sidebar-item-icon {
-    color: var(--fi-color-primary-500);
+    color: var(--primary-500);
 }
 
 /* Active indicator dot at the right edge — quiet "you are here" marker.
@@ -482,8 +328,8 @@ body {
     width: 0.3125rem;
     height: 0.3125rem;
     border-radius: 9999px;
-    background-color: var(--fi-color-primary-500);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--fi-color-primary-500) 18%, transparent);
+    background-color: var(--primary-500);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary-500) 18%, transparent);
 }
 .fi-sidebar-item.fi-active:has(.fi-sidebar-item-badge-ctn) .fi-sidebar-item-btn::after {
     display: none;
@@ -508,21 +354,21 @@ body {
    active marker — solid primary fill so it reads as "current page" without
    needing a separate dot. */
 .fi-sidebar-item.fi-active .fi-sidebar-item-badge-ctn .fi-badge {
-    background-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
     color: white;
     border-color: transparent;
-    box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--fi-color-primary-700) 22%, transparent);
+    box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--primary-700) 22%, transparent);
 }
 .dark .fi-sidebar-item.fi-active .fi-sidebar-item-badge-ctn .fi-badge {
-    background-color: var(--fi-color-primary-400);
-    color: var(--fi-color-gray-950);
+    background-color: var(--primary-400);
+    color: var(--gray-950);
 }
 .fi-sidebar-item.fi-active .fi-sidebar-item-badge-ctn .fi-badge .fi-badge-label {
     color: inherit;
 }
 
 /* ==========================================================================
-   5. SECTIONS / CARDS — soft-rounded, solid 1px borders (P1)
+   4. SECTIONS / CARDS — soft-rounded, solid 1px borders (P1)
    ========================================================================== */
 
 /*
@@ -540,39 +386,39 @@ body {
 | dark mode and doesn't fight with the active brand palette.
 |
 | Tokens:
-|   --ld-frame-gap        gap between inner border and outer ring
-|   --ld-frame-gap-color  fill colour painted in that gap (canvas)
-|   --ld-frame-ring-color outer hairline colour
+|   --ltt-frame-gap        gap between inner border and outer ring
+|   --ltt-frame-gap-color  fill colour painted in that gap (canvas)
+|   --ltt-frame-ring-color outer hairline colour
 */
 :root {
-    --ld-frame-gap: 3px;
-    --ld-frame-gap-color: var(--ld-canvas);
-    --ld-frame-ring-color: var(--fi-color-gray-200);
+    --ltt-frame-gap: 3px;
+    --ltt-frame-gap-color: var(--ltt-canvas);
+    --ltt-frame-ring-color: var(--gray-200);
 }
 .dark {
-    --ld-frame-ring-color: var(--fi-color-gray-800);
+    --ltt-frame-ring-color: var(--gray-800);
 }
 
 .fi-section {
     background-color: white;
-    border: var(--ld-stroke) solid var(--fi-color-gray-200);
-    border-radius: var(--ld-radius);
+    border: var(--ltt-stroke) solid var(--gray-200);
+    border-radius: var(--ltt-radius);
     box-shadow:
-        0 0 0 var(--ld-frame-gap) var(--ld-frame-gap-color),
-        0 0 0 calc(var(--ld-frame-gap) + 1px) var(--ld-frame-ring-color);
+        0 0 0 var(--ltt-frame-gap) var(--ltt-frame-gap-color),
+        0 0 0 calc(var(--ltt-frame-gap) + 1px) var(--ltt-frame-ring-color);
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
 }
 .dark .fi-section {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-800);
+    background-color: var(--gray-900);
+    border-color: var(--gray-800);
 }
 
 /* Nested sections (Section → Section, Repeater items, etc.) — opt the
    inner ones out of the outer ring so we don't stack three borders deep. */
 .fi-section .fi-section,
-.fi-section .fi-ta,
-.fi-fo-fieldset .fi-section,
+.fi-section .fi-ta-ctn,
+.fi-fieldset .fi-section,
 .fi-fo-repeater-item .fi-section {
     box-shadow: none;
 }
@@ -588,10 +434,10 @@ body {
 */
 .fi-section-header {
     padding: 1.25rem 1.5rem 1.125rem;
-    border-bottom: var(--ld-stroke) solid var(--fi-color-gray-200);
+    border-bottom: var(--ltt-stroke) solid var(--gray-200);
 }
 .dark .fi-section-header {
-    border-bottom-color: var(--fi-color-gray-800);
+    border-bottom-color: var(--gray-800);
 }
 
 .fi-section-header-heading {
@@ -599,25 +445,21 @@ body {
     font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
     line-height: 1.35;
 }
 .dark .fi-section-header-heading {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-section-header-description {
     font-size: 0.8125rem;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     margin-top: 0.25rem;
     line-height: 1.5;
 }
 
 .fi-section-content { padding: 1.5rem 1.5rem 1.625rem; }
-
-.fi-section-content-ctn:not(.fi-section-has-content-padding) > .fi-section-content {
-    padding: 1.5rem 1.5rem 1.625rem;
-}
 
 /* Stack sections with consistent breathing room. The grid/flex of the
    page already lays them out, but when they sit edge-to-edge in a column
@@ -629,17 +471,17 @@ body {
 
 .fi-section-footer {
     padding: 0.875rem 1.5rem;
-    border-top: var(--ld-stroke) solid var(--ld-border-soft-light);
-    background-color: var(--fi-color-gray-50);
-    border-radius: 0 0 calc(var(--ld-radius) - 1px) calc(var(--ld-radius) - 1px);
+    border-top: var(--ltt-stroke) solid var(--ltt-border-soft-light);
+    background-color: var(--gray-50);
+    border-radius: 0 0 calc(var(--ltt-radius) - 1px) calc(var(--ltt-radius) - 1px);
 }
 .dark .fi-section-footer {
-    border-top-color: var(--ld-border-soft-dark);
-    background-color: var(--fi-color-gray-950);
+    border-top-color: var(--ltt-border-soft-dark);
+    background-color: var(--gray-950);
 }
 
 /* ==========================================================================
-   7. PAGE HEADER — bold display + breadcrumbs polish
+   5. PAGE HEADER — bold display + breadcrumbs polish
    ========================================================================== */
 
 .fi-header {
@@ -651,14 +493,14 @@ body {
     font-size: 1.875rem;
     font-weight: 700;
     letter-spacing: -0.04em;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
     line-height: 1.05;
     text-wrap: balance;
     position: relative;
     display: inline-block;
 }
 .dark .fi-header-heading {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 /* Subtle primary-colored period after the title — laravel.com signature
@@ -666,13 +508,13 @@ body {
    headings (which use h3). */
 h1.fi-header-heading::after {
     content: '.';
-    color: var(--fi-color-primary-500);
+    color: var(--primary-500);
     margin-inline-start: 0.0625rem;
     font-weight: 700;
 }
 
 .fi-header-subheading {
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     font-size: 0.9375rem;
     margin-top: 0.4375rem;
     line-height: 1.5;
@@ -686,28 +528,28 @@ h1.fi-header-heading::after {
 .fi-breadcrumbs-item {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: var(--fi-color-gray-500);
-    transition: color 120ms var(--ld-ease-out);
+    color: var(--gray-500);
+    transition: color 120ms var(--ltt-ease-out);
 }
 .fi-breadcrumbs-item:hover {
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
 }
 .dark .fi-breadcrumbs-item:hover {
-    color: var(--fi-color-gray-100);
+    color: var(--gray-100);
 }
 .fi-breadcrumbs-item-separator {
-    color: var(--fi-color-gray-300);
+    color: var(--gray-300);
 }
 .dark .fi-breadcrumbs-item-separator {
-    color: var(--fi-color-gray-700);
+    color: var(--gray-700);
 }
 
 /* ==========================================================================
-   8. BUTTONS
+   6. BUTTONS
    ========================================================================== */
 
 .fi-btn {
-    border-radius: var(--ld-radius-sm);
+    border-radius: var(--ltt-radius-sm);
     font-weight: 600;
     letter-spacing: -0.005em;
     transition: transform 120ms ease, background-color 140ms ease,
@@ -716,133 +558,133 @@ h1.fi-header-heading::after {
 .fi-btn:active { transform: translateY(0.5px); }
 .fi-btn:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--fi-color-primary-500) var(--ld-glow-mix), transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary-500) var(--ltt-glow-mix), transparent);
 }
 
 /* Primary — laravel.com CTA : couleur pleine (docs §Effets : pas de gradient
    sur boutons). Légère bordure brand-darken pour ancrer le bouton, ombre
    subtile, hover via background-color, pas de translation Y. */
 .fi-btn.fi-color-primary {
-    background-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
     background-image: none;
     color: white;
-    border: 1px solid var(--fi-color-primary-600);
+    border: 1px solid var(--primary-600);
     box-shadow:
         0 1px 1px 0 rgba(0, 0, 0, 0.04),
-        0 1px 2px 0 color-mix(in oklch, var(--fi-color-primary-700) 18%, transparent);
+        0 1px 2px 0 color-mix(in oklch, var(--primary-700) 18%, transparent);
 }
 .fi-btn.fi-color-primary:hover {
-    background-color: var(--fi-color-primary-600);
-    border-color: var(--fi-color-primary-700);
+    background-color: var(--primary-600);
+    border-color: var(--primary-700);
     box-shadow:
         0 1px 2px 0 rgba(0, 0, 0, 0.06),
-        0 2px 4px -1px color-mix(in oklch, var(--fi-color-primary-700) 22%, transparent);
+        0 2px 4px -1px color-mix(in oklch, var(--primary-700) 22%, transparent);
 }
 .fi-btn.fi-color-primary:active {
-    background-color: var(--fi-color-primary-700);
-    border-color: var(--fi-color-primary-800);
+    background-color: var(--primary-700);
+    border-color: var(--primary-800);
     box-shadow:
         inset 0 1px 1px 0 rgba(0, 0, 0, 0.10),
-        0 1px 1px 0 color-mix(in oklch, var(--fi-color-primary-700) 14%, transparent);
+        0 1px 1px 0 color-mix(in oklch, var(--primary-700) 14%, transparent);
 }
 
 /* Danger — quiet by default (soft red border), filled red on hover. P1 = solid. */
 .fi-btn.fi-color-danger:not(.fi-outlined) {
     background-color: transparent;
-    color: var(--fi-color-danger-600);
-    border: 1px solid color-mix(in oklch, var(--fi-color-danger-500) 35%, transparent);
+    color: var(--danger-600);
+    border: 1px solid color-mix(in oklch, var(--danger-500) 35%, transparent);
     box-shadow: none;
 }
 .fi-btn.fi-color-danger:not(.fi-outlined):hover {
-    background-color: color-mix(in oklch, var(--fi-color-danger-500) 8%, transparent);
-    border-color: var(--fi-color-danger-500);
-    color: var(--fi-color-danger-700);
-    box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--fi-color-danger-700) 18%, transparent);
+    background-color: color-mix(in oklch, var(--danger-500) 8%, transparent);
+    border-color: var(--danger-500);
+    color: var(--danger-700);
+    box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--danger-700) 18%, transparent);
 }
 .dark .fi-btn.fi-color-danger:not(.fi-outlined) {
-    color: var(--fi-color-danger-400);
+    color: var(--danger-400);
 }
 .dark .fi-btn.fi-color-danger:not(.fi-outlined):hover {
-    color: var(--fi-color-danger-300);
+    color: var(--danger-300);
 }
 
 .fi-btn.fi-outlined {
     background-color: white;
-    border: 1px solid var(--fi-color-gray-300);
-    color: var(--fi-color-gray-800);
+    border: 1px solid var(--gray-300);
+    color: var(--gray-800);
     box-shadow: none;
 }
 .fi-btn.fi-outlined:hover {
-    background-color: var(--fi-color-gray-50);
-    border-color: var(--fi-color-gray-400);
-    color: var(--fi-color-gray-900);
+    background-color: var(--gray-50);
+    border-color: var(--gray-400);
+    color: var(--gray-900);
 }
 .dark .fi-btn.fi-outlined {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-700);
-    color: var(--fi-color-gray-100);
+    background-color: var(--gray-900);
+    border-color: var(--gray-700);
+    color: var(--gray-100);
 }
 .dark .fi-btn.fi-outlined:hover {
-    background-color: color-mix(in oklch, var(--fi-color-gray-800) 60%, var(--fi-color-gray-900));
-    border-color: var(--fi-color-gray-600);
+    background-color: color-mix(in oklch, var(--gray-800) 60%, var(--gray-900));
+    border-color: var(--gray-600);
     color: white;
 }
 
 .fi-btn.fi-size-xs,
 .fi-btn.fi-size-sm {
-    border-radius: var(--ld-pill);
+    border-radius: var(--ltt-pill);
 }
 
 .fi-icon-btn {
-    border-radius: var(--ld-radius-sm);
+    border-radius: var(--ltt-radius-sm);
     transition: background-color 120ms ease, color 120ms ease;
 }
 .fi-icon-btn:hover {
-    background-color: var(--fi-color-gray-100);
-    color: var(--fi-color-primary-600);
+    background-color: var(--gray-100);
+    color: var(--primary-600);
 }
 .dark .fi-icon-btn:hover {
-    background-color: var(--fi-color-gray-800);
-    color: var(--fi-color-primary-300);
+    background-color: var(--gray-800);
+    color: var(--primary-300);
 }
 
 /* ==========================================================================
-   9. INPUTS / FORMS — eyebrow labels, bordered fieldsets, red required mark
+   7. INPUTS / FORMS — eyebrow labels, bordered fieldsets, red required mark
    ========================================================================== */
 
 .fi-input,
 .fi-fo-text-input,
 .fi-fo-textarea,
 .fi-input-wrp {
-    border-radius: var(--ld-radius-sm);
+    border-radius: var(--ltt-radius-sm);
 }
 
 .fi-input-wrp {
     background-color: white;
-    border: 1px solid var(--fi-color-gray-300);
+    border: 1px solid var(--gray-300);
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.02);
     transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
 }
 .dark .fi-input-wrp {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-700);
+    background-color: var(--gray-900);
+    border-color: var(--gray-700);
     box-shadow: none;
 }
 
 .fi-input-wrp:hover {
-    border-color: var(--fi-color-gray-400);
+    border-color: var(--gray-400);
 }
 .dark .fi-input-wrp:hover {
-    border-color: var(--fi-color-gray-600);
+    border-color: var(--gray-600);
 }
 
 .fi-input-wrp:focus-within {
-    border-color: var(--fi-color-primary-500);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--fi-color-primary-500) var(--ld-glow-mix), transparent);
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary-500) var(--ltt-glow-mix), transparent);
     background-color: white;
 }
 .dark .fi-input-wrp:focus-within {
-    background-color: var(--fi-color-gray-900);
+    background-color: var(--gray-900);
 }
 
 .fi-input,
@@ -852,23 +694,23 @@ h1.fi-header-heading::after {
     font-size: 0.9375rem;
     line-height: 1.5;
     font-family: var(--font-sans);
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
 }
 .dark .fi-input,
 .dark .fi-fo-text-input,
 .dark .fi-fo-textarea {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-input::placeholder,
 .fi-fo-text-input::placeholder,
 .fi-fo-textarea::placeholder {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 .dark .fi-input::placeholder,
 .dark .fi-fo-text-input::placeholder,
 .dark .fi-fo-textarea::placeholder {
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
 }
 
 /*
@@ -889,12 +731,12 @@ h1.fi-header-heading::after {
     font-size: 0.875rem;
     letter-spacing: 0;
     text-transform: none;
-    color: var(--fi-color-gray-800);
+    color: var(--gray-800);
     line-height: 1.4;
 }
 .dark .fi-fo-field-label,
 .dark .fi-input-wrp-label {
-    color: var(--fi-color-gray-200);
+    color: var(--gray-200);
 }
 
 /*
@@ -907,7 +749,7 @@ h1.fi-header-heading::after {
     display: inline-block;
     inline-size: 0.375rem;
     block-size: 0.375rem;
-    background-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
     color: transparent;
     border-radius: 9999px;
     margin-inline-start: 0.4375rem;
@@ -917,22 +759,20 @@ h1.fi-header-heading::after {
 }
 
 /* Helper / hint text — subtle, with breathing room from the input */
-.fi-fo-field-wrp-hint,
-.fi-fo-field-wrp-helper-text {
+.fi-fo-field .fi-sc-text {
     font-size: 0.8125rem;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     margin-top: 0.4375rem;
     line-height: 1.5;
 }
-.dark .fi-fo-field-wrp-hint,
-.dark .fi-fo-field-wrp-helper-text {
-    color: var(--fi-color-gray-400);
+.dark .fi-fo-field .fi-sc-text {
+    color: var(--gray-400);
 }
 
 /* Error — same spacing rhythm as helpers */
 .fi-fo-field-wrp-error-message,
 .fi-fo-field-wrp-error-list {
-    color: var(--fi-color-danger-600);
+    color: var(--danger-600);
     font-weight: 500;
     font-size: 0.8125rem;
     margin-top: 0.4375rem;
@@ -940,58 +780,54 @@ h1.fi-header-heading::after {
 }
 .dark .fi-fo-field-wrp-error-message,
 .dark .fi-fo-field-wrp-error-list {
-    color: var(--fi-color-danger-400);
+    color: var(--danger-400);
 }
 
 /* Section-content inside a form — consistent row gap between fields */
-.fi-section-content .fi-fo-component-ctn {
+.fi-section-content .fi-sc {
     gap: 1.25rem;
 }
 
-.fi-toggle.fi-on { background-color: var(--fi-color-primary-500); }
+.fi-toggle.fi-on { background-color: var(--primary-500); }
 
 .fi-checkbox-input:checked,
 .fi-radio-input:checked {
-    background-color: var(--fi-color-primary-500);
-    border-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
+    border-color: var(--primary-500);
 }
 
 .fi-checkbox-input,
 .fi-radio-input {
-    border-radius: var(--ld-radius-xs);
-    border-color: var(--fi-color-gray-300);
+    border-radius: var(--ltt-radius-xs);
+    border-color: var(--gray-300);
 }
 .fi-radio-input { border-radius: 9999px; }
 
 /* Fieldset — soft solid border, labeled */
-.fi-fo-fieldset,
-.fi-sc-fieldset {
+.fi-fieldset {
     background-color: white;
-    border: var(--ld-stroke) solid var(--ld-border-soft-light);
-    border-radius: var(--ld-radius);
+    border: var(--ltt-stroke) solid var(--ltt-border-soft-light);
+    border-radius: var(--ltt-radius);
     padding: 1.25rem 1.5rem;
 }
-.dark .fi-fo-fieldset,
-.dark .fi-sc-fieldset {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--ld-border-soft-dark);
+.dark .fi-fieldset {
+    background-color: var(--gray-900);
+    border-color: var(--ltt-border-soft-dark);
 }
 
-.fi-fieldset-label,
-.fi-sc-fieldset-label {
+.fi-fieldset > legend {
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0;
     text-transform: none;
-    color: var(--fi-color-primary-600);
+    color: var(--primary-600);
     background-color: white;
     padding-inline: 0.5rem;
     margin-inline-start: -0.5rem;
 }
-.dark .fi-fieldset-label,
-.dark .fi-sc-fieldset-label {
-    color: var(--fi-color-primary-400);
-    background-color: var(--fi-color-gray-900);
+.dark .fi-fieldset > legend {
+    color: var(--primary-400);
+    background-color: var(--gray-900);
 }
 
 /*
@@ -1004,34 +840,32 @@ h1.fi-header-heading::after {
 */
 .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined),
 .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined):hover {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 12%, white);
+    background-color: color-mix(in oklch, var(--primary-500) 12%, white);
     background-image: none;
-    color: var(--fi-color-primary-700);
-    border-color: var(--fi-color-primary-500);
+    color: var(--primary-700);
+    border-color: var(--primary-500);
     box-shadow:
-        inset 0 0 0 1px var(--fi-color-primary-500),
-        0 1px 2px 0 color-mix(in oklch, var(--fi-color-primary-700) 15%, transparent);
+        inset 0 0 0 1px var(--primary-500),
+        0 1px 2px 0 color-mix(in oklch, var(--primary-700) 15%, transparent);
 }
 .dark .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined),
 .dark .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined):hover {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 20%, var(--fi-color-gray-900));
-    color: var(--fi-color-primary-200);
-    border-color: var(--fi-color-primary-500);
+    background-color: color-mix(in oklch, var(--primary-500) 20%, var(--gray-900));
+    color: var(--primary-200);
+    border-color: var(--primary-500);
     box-shadow:
-        inset 0 0 0 1px var(--fi-color-primary-500),
+        inset 0 0 0 1px var(--primary-500),
         0 1px 2px 0 rgba(0, 0, 0, 0.3);
 }
-.fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined) .fi-btn-icon,
 .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined) .fi-icon {
-    color: var(--fi-color-primary-600);
+    color: var(--primary-600);
 }
-.dark .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined) .fi-btn-icon,
 .dark .fi-fo-toggle-buttons-input:checked + .fi-btn:not(.fi-outlined) .fi-icon {
-    color: var(--fi-color-primary-300);
+    color: var(--primary-300);
 }
 
 /* ==========================================================================
-   10. TABLES — controls outside the bordered area, table reads cleanly
+   8. TABLES — controls outside the bordered area, table reads cleanly
    ========================================================================== */
 
 /*
@@ -1056,19 +890,19 @@ h1.fi-header-heading::after {
    palette-tinted outer ring with a canvas-coloured gap. */
 .fi-ta {
     background-color: white;
-    border: 1px solid var(--fi-color-gray-200);
-    border-radius: var(--ld-radius);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--ltt-radius);
     box-shadow:
-        0 0 0 var(--ld-frame-gap) var(--ld-frame-gap-color),
-        0 0 0 calc(var(--ld-frame-gap) + 1px) var(--ld-frame-ring-color);
+        0 0 0 var(--ltt-frame-gap) var(--ltt-frame-gap-color),
+        0 0 0 calc(var(--ltt-frame-gap) + 1px) var(--ltt-frame-ring-color);
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
     overflow: hidden;
     position: relative;
 }
 .dark .fi-ta {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-800);
+    background-color: var(--gray-900);
+    border-color: var(--gray-800);
 }
 
 /* Header (search bar, column manager, etc.) sits above the table.
@@ -1164,10 +998,10 @@ h1.fi-header-heading::after {
 /* Hairline divider between the open filter panel and the toolbar that
    follows it — without this they merge into one tall slab of dark. */
 .fi-ta-filters-above-content-ctn.fi-open {
-    border-bottom: 1px solid var(--ld-border-soft-light);
+    border-bottom: 1px solid var(--ltt-border-soft-light);
 }
 .dark .fi-ta-filters-above-content-ctn.fi-open {
-    border-bottom-color: var(--ld-border-soft-dark);
+    border-bottom-color: var(--ltt-border-soft-dark);
 }
 
 /* Active-filters bar lives flush inside the table frame (.fi-ta-main is
@@ -1212,9 +1046,8 @@ h1.fi-header-heading::after {
 | (`1fr auto 1fr`) keeps per-page mathematically centred. We just need
 | to give it room to breathe so it doesn't crowd the table border.
 */
-.fi-ta-content-footer,
-.fi-pagination {
-    margin-top: calc(var(--ld-frame-gap) + 1px + 0.875rem);
+.fi-ta-ctn .fi-pagination {
+    margin-top: calc(var(--ltt-frame-gap) + 1px + 0.875rem);
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -1223,8 +1056,7 @@ h1.fi-header-heading::after {
     align-items: center;
     column-gap: 1rem;
 }
-.dark .fi-ta-content-footer,
-.dark .fi-pagination {
+.dark .fi-ta-ctn .fi-pagination {
     background-color: transparent;
 }
 
@@ -1237,12 +1069,12 @@ h1.fi-header-heading::after {
 
 /* "Showing 1 to 10 of 1,000 results" */
 .fi-pagination-overview {
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     font-size: 0.8125rem;
     font-weight: 500;
 }
 .dark .fi-pagination-overview {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 
 /* "Per page" prefix label inside the select wrapper */
@@ -1251,7 +1083,7 @@ h1.fi-header-heading::after {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
 }
 
 /*
@@ -1261,10 +1093,10 @@ h1.fi-header-heading::after {
 | that group look, only flipping the active item to our brand red.
 */
 .fi-pagination-item.fi-active .fi-pagination-item-btn {
-    background-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
     background-image: none;
     box-shadow:
-        0 1px 2px 0 color-mix(in oklch, var(--fi-color-primary-700) 18%, transparent);
+        0 1px 2px 0 color-mix(in oklch, var(--primary-700) 18%, transparent);
 }
 .fi-pagination-item.fi-active .fi-pagination-item-label {
     color: white;
@@ -1285,24 +1117,24 @@ h1.fi-header-heading::after {
 .fi-ta-header-cell,
 .fi-ta-table > thead > tr > .fi-ta-selection-cell,
 .fi-ta-actions-header-cell {
-    background-color: var(--fi-color-gray-50);
+    background-color: var(--gray-50);
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: none;
     letter-spacing: 0;
-    color: var(--fi-color-gray-600);
+    color: var(--gray-600);
     padding-block: 0.75rem;
-    border-bottom: 1px solid var(--fi-color-gray-200);
+    border-bottom: 1px solid var(--gray-200);
 }
 .dark .fi-ta-header-cell,
 .dark .fi-ta-table > thead > tr > .fi-ta-selection-cell,
 .dark .fi-ta-actions-header-cell {
-    background-color: color-mix(in oklch, var(--fi-color-gray-950) 70%, var(--fi-color-gray-900));
-    color: var(--fi-color-gray-400);
-    border-bottom-color: var(--fi-color-gray-800);
+    background-color: color-mix(in oklch, var(--gray-950) 70%, var(--gray-900));
+    color: var(--gray-400);
+    border-bottom-color: var(--gray-800);
 }
 
-.fi-ta-header-cell-label {
+.fi-ta-header-cell-sort-btn {
     font-weight: 600;
 }
 
@@ -1310,29 +1142,29 @@ h1.fi-header-heading::after {
    les tables denses clignotent en rouge — laravel.com reste neutre). */
 .fi-ta-row {
     transition: background-color 100ms ease;
-    border-top: 1px solid var(--ld-border-soft-light);
+    border-top: 1px solid var(--ltt-border-soft-light);
 }
 .dark .fi-ta-row {
-    border-top-color: var(--ld-border-soft-dark);
+    border-top-color: var(--ltt-border-soft-dark);
 }
 
 .fi-ta-row:hover {
-    background-color: var(--fi-color-gray-50);
+    background-color: var(--gray-50);
 }
 .dark .fi-ta-row:hover {
-    background-color: color-mix(in oklch, var(--fi-color-gray-800) 50%, var(--fi-color-gray-900));
+    background-color: color-mix(in oklch, var(--gray-800) 50%, var(--gray-900));
 }
 
 .fi-ta-cell {
     padding-block: 0.875rem;
     font-size: 0.9375rem;
-    color: var(--fi-color-gray-800);
+    color: var(--gray-800);
 }
 .dark .fi-ta-cell {
-    color: var(--fi-color-gray-200);
+    color: var(--gray-200);
 }
 
-.fi-ta-text-item-label {
+.fi-ta-text-item {
     font-weight: 500;
 }
 
@@ -1349,14 +1181,14 @@ h1.fi-header-heading::after {
 }
 
 .fi-ta-image img {
-    border-radius: var(--ld-radius-sm);
-    background-color: var(--fi-color-gray-100);
+    border-radius: var(--ltt-radius-sm);
+    background-color: var(--gray-100);
     object-fit: cover;
-    border: 1px solid var(--fi-color-gray-200);
+    border: 1px solid var(--gray-200);
 }
 .dark .fi-ta-image img {
-    background-color: var(--fi-color-gray-800);
-    border-color: var(--fi-color-gray-700);
+    background-color: var(--gray-800);
+    border-color: var(--gray-700);
 }
 
 /* Broken / empty source — soft inset pattern instead of the OS placeholder.
@@ -1365,11 +1197,11 @@ h1.fi-header-heading::after {
 .fi-ta-image img:not([src]) {
     background-image:
         linear-gradient(135deg,
-            var(--fi-color-gray-100) 25%, transparent 25%,
-            transparent 50%, var(--fi-color-gray-100) 50%,
-            var(--fi-color-gray-100) 75%, transparent 75%);
+            var(--gray-100) 25%, transparent 25%,
+            transparent 50%, var(--gray-100) 50%,
+            var(--gray-100) 75%, transparent 75%);
     background-size: 8px 8px;
-    background-color: var(--fi-color-gray-50);
+    background-color: var(--gray-50);
 }
 
 /*
@@ -1378,16 +1210,16 @@ h1.fi-header-heading::after {
 | The default `.fi-text-color-600` rule wins specificity ties, so we
 | anchor on `.fi-ta-icon` to bump our selectors above it.
 */
-.fi-ta-icon .fi-icon.fi-color-success { color: var(--fi-color-success-600); }
-.fi-ta-icon .fi-icon.fi-color-danger  { color: var(--fi-color-danger-600); }
-.fi-ta-icon .fi-icon.fi-color-warning { color: var(--fi-color-warning-600); }
-.fi-ta-icon .fi-icon.fi-color-primary { color: var(--fi-color-primary-600); }
-.fi-ta-icon .fi-icon.fi-color-info    { color: var(--fi-color-info-600); }
-.dark .fi-ta-icon .fi-icon.fi-color-success { color: var(--fi-color-success-400); }
-.dark .fi-ta-icon .fi-icon.fi-color-danger  { color: var(--fi-color-danger-400); }
-.dark .fi-ta-icon .fi-icon.fi-color-warning { color: var(--fi-color-warning-400); }
-.dark .fi-ta-icon .fi-icon.fi-color-primary { color: var(--fi-color-primary-400); }
-.dark .fi-ta-icon .fi-icon.fi-color-info    { color: var(--fi-color-info-400); }
+.fi-ta-icon .fi-icon.fi-color-success { color: var(--success-600); }
+.fi-ta-icon .fi-icon.fi-color-danger  { color: var(--danger-600); }
+.fi-ta-icon .fi-icon.fi-color-warning { color: var(--warning-600); }
+.fi-ta-icon .fi-icon.fi-color-primary { color: var(--primary-600); }
+.fi-ta-icon .fi-icon.fi-color-info    { color: var(--info-600); }
+.dark .fi-ta-icon .fi-icon.fi-color-success { color: var(--success-400); }
+.dark .fi-ta-icon .fi-icon.fi-color-danger  { color: var(--danger-400); }
+.dark .fi-ta-icon .fi-icon.fi-color-warning { color: var(--warning-400); }
+.dark .fi-ta-icon .fi-icon.fi-color-primary { color: var(--primary-400); }
+.dark .fi-ta-icon .fi-icon.fi-color-info    { color: var(--info-400); }
 
 /* Selection cell (left checkbox column) — tighten so the row reads as a
    clean horizontal band rather than a wide gutter. */
@@ -1409,11 +1241,11 @@ h1.fi-header-heading::after {
 }
 
 /* ==========================================================================
-   11. BADGES
+   9. BADGES
    ========================================================================== */
 
 .fi-badge {
-    border-radius: var(--ld-pill);
+    border-radius: var(--ltt-pill);
     font-weight: 700;
     font-size: 0.6875rem;
     letter-spacing: 0.04em;
@@ -1424,7 +1256,7 @@ h1.fi-header-heading::after {
 }
 
 /* ==========================================================================
-   12. TABS — laravel.com pill segmented (transparent strip, white pill on active)
+   10. TABS — laravel.com pill segmented (transparent strip, white pill on active)
    ==========================================================================
 |
 | Laravel.com style: the tab strip itself is barely there (transparent
@@ -1436,53 +1268,53 @@ h1.fi-header-heading::after {
 */
 
 .fi-tabs,
-.fi-page-tabs {
+.fi-page-sub-navigation-tabs {
     background-color: transparent;
-    border-radius: var(--ld-pill);
+    border-radius: var(--ltt-pill);
     padding: 0.3125rem;
     display: inline-flex;
     gap: 0.125rem;
-    border: 1px solid var(--fi-color-gray-200);
+    border: 1px solid var(--gray-200);
 }
 .dark .fi-tabs,
-.dark .fi-page-tabs {
-    border-color: var(--fi-color-gray-800);
+.dark .fi-page-sub-navigation-tabs {
+    border-color: var(--gray-800);
 }
 
 .fi-tabs-item {
-    border-radius: var(--ld-pill);
+    border-radius: var(--ltt-pill);
     padding: 0.5rem 1.125rem;
     font-weight: 600;
     font-size: 0.8125rem;
-    color: var(--fi-color-gray-600);
+    color: var(--gray-600);
     border: none;
     background: transparent;
     transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
 }
-.dark .fi-tabs-item { color: var(--fi-color-gray-400); }
+.dark .fi-tabs-item { color: var(--gray-400); }
 
-.fi-tabs-item:hover { color: var(--fi-color-gray-900); }
-.dark .fi-tabs-item:hover { color: var(--fi-color-gray-100); }
+.fi-tabs-item:hover { color: var(--gray-900); }
+.dark .fi-tabs-item:hover { color: var(--gray-100); }
 
 .fi-tabs-item.fi-active {
     background-color: white;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
     box-shadow:
         0 1px 2px 0 rgb(0 0 0 / 0.05),
         0 1px 3px 0 rgb(0 0 0 / 0.04),
-        0 0 0 1px var(--fi-color-gray-200);
+        0 0 0 1px var(--gray-200);
 }
 .dark .fi-tabs-item.fi-active {
-    background-color: var(--fi-color-gray-800);
-    color: var(--fi-color-gray-50);
+    background-color: var(--gray-800);
+    color: var(--gray-50);
     box-shadow:
         0 1px 2px 0 rgb(0 0 0 / 0.25),
-        0 0 0 1px var(--fi-color-gray-700);
+        0 0 0 1px var(--gray-700);
 }
 
 /*
 | Tab icons — Filament defaults paint the active icon in primary
-| (e.g. .fi-tabs-item.fi-active .fi-icon { color: var(--fi-color-primary-...) }),
+| (e.g. .fi-tabs-item.fi-active .fi-icon { color: var(--primary-...) }),
 | which clashes with our gray-900 active text. We force both states to
 | inherit the button's text colour so icon + label read as one unit.
 */
@@ -1506,16 +1338,16 @@ h1.fi-header-heading::after {
 
 .fi-sc-tabs.fi-contained {
     background-color: white;
-    border: 1px solid var(--fi-color-gray-200);
-    border-radius: var(--ld-radius);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--ltt-radius);
     padding: 1rem 1.25rem 1.5rem;
     box-shadow:
-        0 0 0 var(--ld-frame-gap) var(--ld-frame-gap-color),
-        0 0 0 calc(var(--ld-frame-gap) + 1px) var(--ld-frame-ring-color);
+        0 0 0 var(--ltt-frame-gap) var(--ltt-frame-gap-color),
+        0 0 0 calc(var(--ltt-frame-gap) + 1px) var(--ltt-frame-ring-color);
 }
 .dark .fi-sc-tabs.fi-contained {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-800);
+    background-color: var(--gray-900);
+    border-color: var(--gray-800);
 }
 
 /* Tab strip inside a contained block: drop the pill border so it reads
@@ -1546,13 +1378,13 @@ h1.fi-header-heading::after {
 .fi-in-entry-label {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     text-transform: none;
     letter-spacing: 0;
     line-height: 1.4;
 }
 .dark .fi-in-entry-label {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 
 .fi-in-entry-label-ctn {
@@ -1561,11 +1393,11 @@ h1.fi-header-heading::after {
 
 .fi-in-entry-content {
     font-size: 0.9375rem;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
     line-height: 1.45;
 }
 .dark .fi-in-entry-content {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 /* Numeric / monetary values look sharper with tabular figures. */
@@ -1574,41 +1406,41 @@ h1.fi-header-heading::after {
 }
 
 /* ==========================================================================
-   13. DROPDOWN, MODAL
+   11. DROPDOWN, MODAL
    ========================================================================== */
 
 .fi-dropdown-panel {
-    border-radius: var(--ld-radius);
-    border: 1px solid var(--fi-color-gray-200);
-    box-shadow: var(--ld-shadow-lg);
+    border-radius: var(--ltt-radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--ltt-shadow-lg);
     padding: 0.375rem;
     background-color: white;
 }
 .dark .fi-dropdown-panel {
-    border-color: var(--fi-color-gray-800);
-    background-color: var(--fi-color-gray-900);
+    border-color: var(--gray-800);
+    background-color: var(--gray-900);
 }
 
 .fi-dropdown-header {
     padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--ld-border-soft-light);
+    border-bottom: 1px solid var(--ltt-border-soft-light);
     margin-bottom: 0.375rem;
 }
 .dark .fi-dropdown-header {
-    border-bottom-color: var(--ld-border-soft-dark);
+    border-bottom-color: var(--ltt-border-soft-dark);
 }
 
 .fi-dropdown-list-item {
-    border-radius: var(--ld-radius-sm);
+    border-radius: var(--ltt-radius-sm);
     font-size: 0.9375rem;
     transition: background-color 100ms ease, color 100ms ease;
 }
 .fi-dropdown-list-item:hover {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 7%, transparent);
-    color: var(--fi-color-primary-700);
+    background-color: color-mix(in oklch, var(--primary-500) 7%, transparent);
+    color: var(--primary-700);
 }
 .dark .fi-dropdown-list-item:hover {
-    color: var(--fi-color-primary-300);
+    color: var(--primary-300);
 }
 
 /*
@@ -1619,15 +1451,15 @@ h1.fi-header-heading::after {
 | since it sits over a backdrop, not a page.
 */
 .fi-modal-window {
-    border-radius: var(--ld-radius-lg);
-    box-shadow: var(--ld-shadow-lg);
-    border: 1px solid var(--fi-color-gray-200);
+    border-radius: var(--ltt-radius-lg);
+    box-shadow: var(--ltt-shadow-lg);
+    border: 1px solid var(--gray-200);
     background-color: white;
     overflow: hidden;
 }
 .dark .fi-modal-window {
-    border-color: var(--fi-color-gray-800);
-    background-color: var(--fi-color-gray-900);
+    border-color: var(--gray-800);
+    background-color: var(--gray-900);
 }
 
 /* Header — chapter heading with a clean divider beneath. Asymmetric
@@ -1635,11 +1467,11 @@ h1.fi-header-heading::after {
 .fi-modal-window-has-content > .fi-modal-header,
 .fi-modal-window-has-footer > .fi-modal-header {
     padding: 1.25rem 1.5rem 1.125rem;
-    border-bottom: var(--ld-stroke) solid var(--fi-color-gray-200);
+    border-bottom: var(--ltt-stroke) solid var(--gray-200);
 }
 .dark .fi-modal-window-has-content > .fi-modal-header,
 .dark .fi-modal-window-has-footer > .fi-modal-header {
-    border-bottom-color: var(--fi-color-gray-800);
+    border-bottom-color: var(--gray-800);
 }
 
 .fi-modal-heading {
@@ -1647,15 +1479,15 @@ h1.fi-header-heading::after {
     font-weight: 600;
     letter-spacing: -0.015em;
     font-size: 1.125rem;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
 }
 .dark .fi-modal-heading {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-modal-description {
     font-size: 0.8125rem;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     margin-top: 0.25rem;
     line-height: 1.5;
 }
@@ -1670,19 +1502,19 @@ h1.fi-header-heading::after {
    Action row is right-aligned by default; honor explicit alignment classes. */
 .fi-modal-window-has-footer > .fi-modal-footer {
     padding: 0.875rem 1.5rem;
-    border-top: var(--ld-stroke) solid var(--ld-border-soft-light);
-    background-color: var(--fi-color-gray-50);
+    border-top: var(--ltt-stroke) solid var(--ltt-border-soft-light);
+    background-color: var(--gray-50);
 }
 .dark .fi-modal-window-has-footer > .fi-modal-footer {
-    border-top-color: var(--ld-border-soft-dark);
-    background-color: var(--fi-color-gray-950);
+    border-top-color: var(--ltt-border-soft-dark);
+    background-color: var(--gray-950);
 }
 
 /* Slide-over modals (notifications, side panels) — keep them flush with
    the viewport edge (no rounded outer corners on the side that meets it). */
 .fi-modal-slide-over .fi-modal-window {
     border-radius: 0;
-    box-shadow: var(--ld-shadow-lg);
+    box-shadow: var(--ltt-shadow-lg);
 }
 .fi-modal-slide-over-from-end .fi-modal-window {
     border-right: none;
@@ -1692,7 +1524,7 @@ h1.fi-header-heading::after {
 }
 
 /* ==========================================================================
-   14. NOTIFICATIONS — quiet list, accent on unread only
+   12. NOTIFICATIONS — quiet list, accent on unread only
    ========================================================================== */
 
 /* Toast container (top-right floating notifications) */
@@ -1704,28 +1536,28 @@ h1.fi-header-heading::after {
 /* Each notification card (toast OR list item) — minimal chrome,
    colour-tinted left edge to convey severity. */
 .fi-no-notification {
-    border-radius: var(--ld-radius-sm);
-    border: 1px solid var(--fi-color-gray-200);
+    border-radius: var(--ltt-radius-sm);
+    border: 1px solid var(--gray-200);
     background-color: white;
-    box-shadow: var(--ld-shadow-sm);
+    box-shadow: var(--ltt-shadow-sm);
     overflow: hidden;
     position: relative;
 }
 .dark .fi-no-notification {
-    border-color: var(--fi-color-gray-800);
-    background-color: var(--fi-color-gray-900);
+    border-color: var(--gray-800);
+    background-color: var(--gray-900);
 }
 
 /* Toasts (when shown over the page) get a richer shadow + the colored bar */
 .fi-no > .fi-no-notification {
-    box-shadow: var(--ld-shadow-lg);
+    box-shadow: var(--ltt-shadow-lg);
     border-left-width: 3px;
-    border-left-color: var(--fi-color-primary-500);
+    border-left-color: var(--primary-500);
 }
-.fi-no > .fi-no-notification.fi-color-success { border-left-color: var(--fi-color-success-500); }
-.fi-no > .fi-no-notification.fi-color-warning { border-left-color: var(--fi-color-warning-500); }
-.fi-no > .fi-no-notification.fi-color-danger  { border-left-color: var(--fi-color-danger-500); }
-.fi-no > .fi-no-notification.fi-color-info    { border-left-color: var(--fi-color-info-500); }
+.fi-no > .fi-no-notification.fi-color-success { border-left-color: var(--success-500); }
+.fi-no > .fi-no-notification.fi-color-warning { border-left-color: var(--warning-500); }
+.fi-no > .fi-no-notification.fi-color-danger  { border-left-color: var(--danger-500); }
+.fi-no > .fi-no-notification.fi-color-info    { border-left-color: var(--info-500); }
 
 /*
 | Database notifications — rendered as a slide-over modal. We keep the
@@ -1740,17 +1572,17 @@ h1.fi-header-heading::after {
 }
 .dark .fi-no-database,
 .dark .fi-no-database .fi-modal-window {
-    background-color: var(--fi-color-gray-900);
+    background-color: var(--gray-900);
 }
 
 /* Header — laravel.com style: bigger semibold title, primary-tinted count
    chip, primary-color text-actions for the affirmative one. */
 .fi-no-database .fi-modal-header {
     padding-bottom: 0.875rem;
-    border-bottom: 1px solid var(--ld-border-soft-light);
+    border-bottom: 1px solid var(--ltt-border-soft-light);
 }
 .dark .fi-no-database .fi-modal-header {
-    border-bottom-color: var(--ld-border-soft-dark);
+    border-bottom-color: var(--ltt-border-soft-dark);
 }
 
 .fi-no-database .fi-modal-heading {
@@ -1761,29 +1593,29 @@ h1.fi-header-heading::after {
     font-weight: 600;
     font-size: 1.0625rem;
     letter-spacing: -0.015em;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
 }
 .dark .fi-no-database .fi-modal-heading {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 /* Unread count chip — soft primary tint so the panel reads "X waiting"
    the moment it opens. */
 .fi-no-database .fi-modal-heading .fi-badge {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 12%, transparent);
-    color: var(--fi-color-primary-700);
-    border: 1px solid color-mix(in oklch, var(--fi-color-primary-500) 18%, transparent);
+    background-color: color-mix(in oklch, var(--primary-500) 12%, transparent);
+    color: var(--primary-700);
+    border: 1px solid color-mix(in oklch, var(--primary-500) 18%, transparent);
     padding: 0.0625rem 0.4375rem;
-    border-radius: var(--ld-pill);
+    border-radius: var(--ltt-pill);
     font-size: 0.6875rem;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
     line-height: 1.4;
 }
 .dark .fi-no-database .fi-modal-heading .fi-badge {
-    color: var(--fi-color-primary-300);
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 18%, transparent);
-    border-color: color-mix(in oklch, var(--fi-color-primary-500) 28%, transparent);
+    color: var(--primary-300);
+    background-color: color-mix(in oklch, var(--primary-500) 18%, transparent);
+    border-color: color-mix(in oklch, var(--primary-500) 28%, transparent);
 }
 
 /* Mark-all-read + Clear — keep semantic colors but quiet and laravel-like:
@@ -1796,29 +1628,29 @@ h1.fi-header-heading::after {
     font-size: 0.8125rem;
     font-weight: 500;
     text-decoration: none;
-    transition: color var(--ld-duration-slow) var(--ld-ease-out);
+    transition: color var(--ltt-duration-slow) var(--ltt-ease-out);
 }
 .fi-no-database .fi-ac .fi-link.fi-color-primary,
 .fi-no-database .fi-ac .fi-link:not(.fi-color-danger):not(.fi-color-warning):not(.fi-color-success) {
-    color: var(--fi-color-primary-600);
+    color: var(--primary-600);
 }
 .fi-no-database .fi-ac .fi-link.fi-color-primary:hover,
 .fi-no-database .fi-ac .fi-link:not(.fi-color-danger):not(.fi-color-warning):not(.fi-color-success):hover {
-    color: var(--fi-color-primary-700);
+    color: var(--primary-700);
 }
 .dark .fi-no-database .fi-ac .fi-link.fi-color-primary,
 .dark .fi-no-database .fi-ac .fi-link:not(.fi-color-danger):not(.fi-color-warning):not(.fi-color-success) {
-    color: var(--fi-color-primary-400);
+    color: var(--primary-400);
 }
 .dark .fi-no-database .fi-ac .fi-link.fi-color-primary:hover,
 .dark .fi-no-database .fi-ac .fi-link:not(.fi-color-danger):not(.fi-color-warning):not(.fi-color-success):hover {
-    color: var(--fi-color-primary-300);
+    color: var(--primary-300);
 }
 .fi-no-database .fi-ac .fi-link.fi-color-danger {
-    color: var(--fi-color-danger-600);
+    color: var(--danger-600);
 }
 .fi-no-database .fi-ac .fi-link.fi-color-danger:hover {
-    color: var(--fi-color-danger-700);
+    color: var(--danger-700);
 }
 
 /* Inside the panel, notifications are stacked: kill their own borders /
@@ -1831,13 +1663,13 @@ h1.fi-header-heading::after {
     padding: 1rem 1rem 1rem 1.75rem;
     position: relative;
     gap: 0.875rem;
-    transition: background-color var(--ld-duration-slow) var(--ld-ease-out);
+    transition: background-color var(--ltt-duration-slow) var(--ltt-ease-out);
 }
 .fi-no-database .fi-no-notification + .fi-no-notification {
-    border-top: 1px solid var(--ld-border-soft-light);
+    border-top: 1px solid var(--ltt-border-soft-light);
 }
 .dark .fi-no-database .fi-no-notification + .fi-no-notification {
-    border-top-color: var(--ld-border-soft-dark);
+    border-top-color: var(--ltt-border-soft-dark);
 }
 
 /* Icon — primary-tinted square. Subtle but unmistakably on-brand. */
@@ -1846,37 +1678,37 @@ h1.fi-header-heading::after {
     width: 2.25rem;
     height: 2.25rem;
     padding: 0.5rem;
-    border-radius: var(--ld-radius-sm);
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 10%, transparent);
-    color: var(--fi-color-primary-600);
-    border: 1px solid color-mix(in oklch, var(--fi-color-primary-500) 16%, transparent);
+    border-radius: var(--ltt-radius-sm);
+    background-color: color-mix(in oklch, var(--primary-500) 10%, transparent);
+    color: var(--primary-600);
+    border: 1px solid color-mix(in oklch, var(--primary-500) 16%, transparent);
 }
 .dark .fi-no-database .fi-no-notification-icon {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 16%, transparent);
-    color: var(--fi-color-primary-300);
-    border-color: color-mix(in oklch, var(--fi-color-primary-500) 28%, transparent);
+    background-color: color-mix(in oklch, var(--primary-500) 16%, transparent);
+    color: var(--primary-300);
+    border-color: color-mix(in oklch, var(--primary-500) 28%, transparent);
 }
 /* Per-color overrides — keep the icon tinted by the notification's own
    semantic color when set (info/success/warning/danger). */
 .fi-no-database .fi-no-notification.fi-color-info .fi-no-notification-icon {
-    background-color: color-mix(in oklch, var(--fi-color-info-500) 10%, transparent);
-    color: var(--fi-color-info-600);
-    border-color: color-mix(in oklch, var(--fi-color-info-500) 16%, transparent);
+    background-color: color-mix(in oklch, var(--info-500) 10%, transparent);
+    color: var(--info-600);
+    border-color: color-mix(in oklch, var(--info-500) 16%, transparent);
 }
 .fi-no-database .fi-no-notification.fi-color-success .fi-no-notification-icon {
-    background-color: color-mix(in oklch, var(--fi-color-success-500) 10%, transparent);
-    color: var(--fi-color-success-600);
-    border-color: color-mix(in oklch, var(--fi-color-success-500) 16%, transparent);
+    background-color: color-mix(in oklch, var(--success-500) 10%, transparent);
+    color: var(--success-600);
+    border-color: color-mix(in oklch, var(--success-500) 16%, transparent);
 }
 .fi-no-database .fi-no-notification.fi-color-warning .fi-no-notification-icon {
-    background-color: color-mix(in oklch, var(--fi-color-warning-500) 12%, transparent);
-    color: var(--fi-color-warning-700);
-    border-color: color-mix(in oklch, var(--fi-color-warning-500) 18%, transparent);
+    background-color: color-mix(in oklch, var(--warning-500) 12%, transparent);
+    color: var(--warning-700);
+    border-color: color-mix(in oklch, var(--warning-500) 18%, transparent);
 }
 .fi-no-database .fi-no-notification.fi-color-danger .fi-no-notification-icon {
-    background-color: color-mix(in oklch, var(--fi-color-danger-500) 10%, transparent);
-    color: var(--fi-color-danger-600);
-    border-color: color-mix(in oklch, var(--fi-color-danger-500) 16%, transparent);
+    background-color: color-mix(in oklch, var(--danger-500) 10%, transparent);
+    color: var(--danger-600);
+    border-color: color-mix(in oklch, var(--danger-500) 16%, transparent);
 }
 
 /* Title — tighter weight + tracking, sits on the same baseline as the date */
@@ -1885,16 +1717,16 @@ h1.fi-header-heading::after {
     font-weight: 600;
     font-size: 0.875rem;
     letter-spacing: -0.005em;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
     line-height: 1.3;
 }
 .dark .fi-no-database .fi-no-notification-title {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-no-database .fi-no-notification-date {
     font-size: 0.75rem;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     font-variant-numeric: tabular-nums;
     margin-top: 0.125rem;
     display: block;
@@ -1902,12 +1734,12 @@ h1.fi-header-heading::after {
 
 .fi-no-database .fi-no-notification-body {
     font-size: 0.8125rem;
-    color: var(--fi-color-gray-600);
+    color: var(--gray-600);
     margin-top: 0.375rem;
     line-height: 1.5;
 }
 .dark .fi-no-database .fi-no-notification-body {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 
 /* Action row inside the notification ("View" link) — primary-colored
@@ -1918,41 +1750,41 @@ h1.fi-header-heading::after {
 .fi-no-database .fi-no-notification-actions .fi-link {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: var(--fi-color-primary-600);
+    color: var(--primary-600);
     text-decoration: none;
-    transition: color var(--ld-duration-slow) var(--ld-ease-out);
+    transition: color var(--ltt-duration-slow) var(--ltt-ease-out);
 }
 .fi-no-database .fi-no-notification-actions .fi-link:hover {
-    color: var(--fi-color-primary-700);
+    color: var(--primary-700);
 }
 .dark .fi-no-database .fi-no-notification-actions .fi-link {
-    color: var(--fi-color-primary-400);
+    color: var(--primary-400);
 }
 .dark .fi-no-database .fi-no-notification-actions .fi-link:hover {
-    color: var(--fi-color-primary-300);
+    color: var(--primary-300);
 }
 
 /* Per-item close (X) button — hidden until row hover to remove visual noise */
 .fi-no-database .fi-no-notification-close-btn {
     opacity: 0;
-    transition: opacity var(--ld-duration-slow) var(--ld-ease-out),
-                color var(--ld-duration-slow) var(--ld-ease-out);
-    color: var(--fi-color-gray-400);
+    transition: opacity var(--ltt-duration-slow) var(--ltt-ease-out),
+                color var(--ltt-duration-slow) var(--ltt-ease-out);
+    color: var(--gray-400);
 }
 .fi-no-database .fi-no-notification:hover .fi-no-notification-close-btn,
 .fi-no-database .fi-no-notification-close-btn:focus-visible {
     opacity: 1;
 }
 .fi-no-database .fi-no-notification-close-btn:hover {
-    color: var(--fi-color-gray-700);
+    color: var(--gray-700);
 }
 .dark .fi-no-database .fi-no-notification-close-btn:hover {
-    color: var(--fi-color-gray-200);
+    color: var(--gray-200);
 }
 
 /* Unread state — left-side primary-colored dot. The wrapper is OUTSIDE
-   the notification's color modifier, so primary resolves to the panel's
-   active palette (laravel/forge/cloud) configured on body. */
+   the notification's color modifier, so primary resolves to the palette
+   registered on the panel. */
 .fi-no-database .fi-no-notification-unread-ctn {
     background-color: transparent;
 }
@@ -1964,9 +1796,9 @@ h1.fi-header-heading::after {
     top: 1.375rem;
     width: 0.4375rem;
     height: 0.4375rem;
-    background-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
     border-radius: 9999px;
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--fi-color-primary-500) 22%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary-500) 22%, transparent);
     z-index: 2;
 }
 
@@ -1976,29 +1808,29 @@ h1.fi-header-heading::after {
 
 /* Hover row tint — soft primary tint so the brand color stays present. */
 .fi-no-database .fi-no-notification:hover {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 4%, transparent);
+    background-color: color-mix(in oklch, var(--primary-500) 4%, transparent);
 }
 .dark .fi-no-database .fi-no-notification:hover {
-    background-color: color-mix(in oklch, var(--fi-color-primary-500) 8%, transparent);
+    background-color: color-mix(in oklch, var(--primary-500) 8%, transparent);
 }
 
 /* ==========================================================================
-   15. CALLOUTS — alert-style content blocks
+   13. CALLOUTS — alert-style content blocks
    ========================================================================== */
 
 .fi-callout,
 .fi-sc-callout {
-    border-radius: var(--ld-radius);
-    border: 1px solid var(--fi-color-gray-200);
+    border-radius: var(--ltt-radius);
+    border: 1px solid var(--gray-200);
     background-color: white;
     padding: 1rem 1.25rem;
-    box-shadow: var(--ld-shadow-sm);
+    box-shadow: var(--ltt-shadow-sm);
     position: relative;
 }
 .dark .fi-callout,
 .dark .fi-sc-callout {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-800);
+    background-color: var(--gray-900);
+    border-color: var(--gray-800);
 }
 
 .fi-callout::after,
@@ -2009,62 +1841,62 @@ h1.fi-header-heading::after {
     left: -1px;
     bottom: -1px;
     width: 4px;
-    background-color: var(--fi-color-primary-500);
-    border-radius: var(--ld-radius) 0 0 var(--ld-radius);
+    background-color: var(--primary-500);
+    border-radius: var(--ltt-radius) 0 0 var(--ltt-radius);
 }
 
-.fi-callout.fi-color-success::after, .fi-sc-callout.fi-color-success::after { background-color: var(--fi-color-success-500); }
-.fi-callout.fi-color-warning::after, .fi-sc-callout.fi-color-warning::after { background-color: var(--fi-color-warning-500); }
-.fi-callout.fi-color-danger::after,  .fi-sc-callout.fi-color-danger::after  { background-color: var(--fi-color-danger-500); }
-.fi-callout.fi-color-info::after,    .fi-sc-callout.fi-color-info::after    { background-color: var(--fi-color-info-500); }
+.fi-callout.fi-color-success::after, .fi-sc-callout.fi-color-success::after { background-color: var(--success-500); }
+.fi-callout.fi-color-warning::after, .fi-sc-callout.fi-color-warning::after { background-color: var(--warning-500); }
+.fi-callout.fi-color-danger::after,  .fi-sc-callout.fi-color-danger::after  { background-color: var(--danger-500); }
+.fi-callout.fi-color-info::after,    .fi-sc-callout.fi-color-info::after    { background-color: var(--info-500); }
 
 .fi-callout-heading {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.9375rem;
     letter-spacing: -0.01em;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
 }
 .dark .fi-callout-heading {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-callout-description {
     font-size: 0.875rem;
-    color: var(--fi-color-gray-600);
+    color: var(--gray-600);
     margin-top: 0.25rem;
 }
 .dark .fi-callout-description {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 
 .fi-callout-icon {
-    color: var(--fi-color-primary-500);
+    color: var(--primary-500);
 }
 
 /* ==========================================================================
-   16. EMPTY STATES — centered, generous, friendly
+   14. EMPTY STATES — centered, generous, friendly
    ========================================================================== */
 
 .fi-empty-state {
     background-color: white;
-    border: 1px solid var(--ld-border-soft-light);
-    border-radius: var(--ld-radius);
+    border: 1px solid var(--ltt-border-soft-light);
+    border-radius: var(--ltt-radius);
     padding: 3rem 2rem;
     text-align: center;
 }
 .dark .fi-empty-state {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--ld-border-soft-dark);
+    background-color: var(--gray-900);
+    border-color: var(--ltt-border-soft-dark);
 }
 
 .fi-empty-state-icon-bg {
     background: radial-gradient(
         circle at center,
-        color-mix(in oklch, var(--fi-color-primary-500) 18%, transparent),
+        color-mix(in oklch, var(--primary-500) 18%, transparent),
         transparent 70%
     );
-    border: 1px solid var(--fi-color-primary-300);
+    border: 1px solid var(--primary-300);
     border-radius: 9999px;
     width: 4.5rem;
     height: 4.5rem;
@@ -2072,10 +1904,10 @@ h1.fi-header-heading::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--fi-color-primary-600);
+    color: var(--primary-600);
 }
 .dark .fi-empty-state-icon-bg {
-    color: var(--fi-color-primary-400);
+    color: var(--primary-400);
 }
 
 .fi-empty-state-heading {
@@ -2084,14 +1916,14 @@ h1.fi-header-heading::after {
     font-size: 1.0625rem;
     letter-spacing: -0.015em;
     margin-top: 1rem;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
 }
 .dark .fi-empty-state-heading {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-empty-state-description {
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     font-size: 0.9375rem;
     margin-top: 0.5rem;
     max-width: 28rem;
@@ -2099,7 +1931,7 @@ h1.fi-header-heading::after {
 }
 
 /* ==========================================================================
-   17. WIDGETS — stats laravel.com / cloud.laravel.com :
+   15. WIDGETS — stats laravel.com / cloud.laravel.com :
        label discret au-dessus, gros nombre, description tabular-num
    ========================================================================== */
 
@@ -2112,12 +1944,12 @@ h1.fi-header-heading::after {
 
 .fi-wi-stats-overview-stat {
     background-color: white;
-    border: 1px solid var(--fi-color-gray-200);
-    border-radius: var(--ld-radius);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--ltt-radius);
     padding: 1.25rem 1.375rem 1.375rem;
-    transition: border-color 160ms var(--ld-ease-out),
-                box-shadow 160ms var(--ld-ease-out),
-                transform 160ms var(--ld-ease-out);
+    transition: border-color 160ms var(--ltt-ease-out),
+                box-shadow 160ms var(--ltt-ease-out),
+                transform 160ms var(--ltt-ease-out);
     position: relative;
     overflow: hidden;
     box-shadow: none;
@@ -2125,15 +1957,15 @@ h1.fi-header-heading::after {
     --tw-shadow: 0 0 #0000;
 }
 .dark .fi-wi-stats-overview-stat {
-    background-color: var(--fi-color-gray-900);
-    border-color: var(--fi-color-gray-800);
+    background-color: var(--gray-900);
+    border-color: var(--gray-800);
 }
 .fi-wi-stats-overview-stat:hover {
-    border-color: var(--fi-color-gray-300);
-    box-shadow: var(--ld-shadow-sm);
+    border-color: var(--gray-300);
+    box-shadow: var(--ltt-shadow-sm);
 }
 .dark .fi-wi-stats-overview-stat:hover {
-    border-color: var(--fi-color-gray-700);
+    border-color: var(--gray-700);
 }
 
 /* Stats card content sits above any decorative layers (sparkline canvas, etc.). */
@@ -2153,13 +1985,13 @@ h1.fi-header-heading::after {
 .fi-wi-stats-overview-stat-label {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--fi-color-gray-600);
+    color: var(--gray-600);
     text-transform: none;
     letter-spacing: 0;
     line-height: 1.4;
 }
 .dark .fi-wi-stats-overview-stat-label {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 
 .fi-wi-stats-overview-stat-value {
@@ -2169,16 +2001,16 @@ h1.fi-header-heading::after {
     letter-spacing: -0.035em;
     line-height: 1.1;
     margin-top: 0.375rem;
-    color: var(--fi-color-gray-900);
+    color: var(--gray-900);
     font-variant-numeric: tabular-nums;
 }
 .dark .fi-wi-stats-overview-stat-value {
-    color: var(--fi-color-gray-50);
+    color: var(--gray-50);
 }
 
 .fi-wi-stats-overview-stat-description {
     font-size: 0.8125rem;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     margin-top: 0.5rem;
     font-variant-numeric: tabular-nums;
     display: inline-flex;
@@ -2186,7 +2018,7 @@ h1.fi-header-heading::after {
     gap: 0.25rem;
 }
 
-.fi-wi-stats-overview-stat-description-icon {
+.fi-wi-stats-overview-stat-description .fi-icon {
     width: 0.875rem;
     height: 0.875rem;
 }
@@ -2196,16 +2028,16 @@ h1.fi-header-heading::after {
 | description block via ->color(). Map each variant to the palette so the
 | icon + text read consistently with the rest of the panel.
 */
-.fi-wi-stats-overview-stat-description.fi-color-primary { color: var(--fi-color-primary-600); }
-.fi-wi-stats-overview-stat-description.fi-color-success { color: var(--fi-color-success-600); }
-.fi-wi-stats-overview-stat-description.fi-color-warning { color: var(--fi-color-warning-600); }
-.fi-wi-stats-overview-stat-description.fi-color-danger  { color: var(--fi-color-danger-600); }
-.fi-wi-stats-overview-stat-description.fi-color-info    { color: var(--fi-color-info-600); }
-.dark .fi-wi-stats-overview-stat-description.fi-color-primary { color: var(--fi-color-primary-400); }
-.dark .fi-wi-stats-overview-stat-description.fi-color-success { color: var(--fi-color-success-400); }
-.dark .fi-wi-stats-overview-stat-description.fi-color-warning { color: var(--fi-color-warning-400); }
-.dark .fi-wi-stats-overview-stat-description.fi-color-danger  { color: var(--fi-color-danger-400); }
-.dark .fi-wi-stats-overview-stat-description.fi-color-info    { color: var(--fi-color-info-400); }
+.fi-wi-stats-overview-stat-description.fi-color-primary { color: var(--primary-600); }
+.fi-wi-stats-overview-stat-description.fi-color-success { color: var(--success-600); }
+.fi-wi-stats-overview-stat-description.fi-color-warning { color: var(--warning-600); }
+.fi-wi-stats-overview-stat-description.fi-color-danger  { color: var(--danger-600); }
+.fi-wi-stats-overview-stat-description.fi-color-info    { color: var(--info-600); }
+.dark .fi-wi-stats-overview-stat-description.fi-color-primary { color: var(--primary-400); }
+.dark .fi-wi-stats-overview-stat-description.fi-color-success { color: var(--success-400); }
+.dark .fi-wi-stats-overview-stat-description.fi-color-warning { color: var(--warning-400); }
+.dark .fi-wi-stats-overview-stat-description.fi-color-danger  { color: var(--danger-400); }
+.dark .fi-wi-stats-overview-stat-description.fi-color-info    { color: var(--info-400); }
 
 /*
 | Sparkline (StatsOverviewWidget::Stat::chart()) — sits inside the card.
@@ -2233,47 +2065,47 @@ h1.fi-header-heading::after {
 
 /* Default (gray) — same hue as the description, low contrast. */
 .fi-wi-stats-overview-stat-chart .fi-wi-stats-overview-stat-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-gray-500) 18%, transparent);
+    color: color-mix(in oklch, var(--gray-500) 18%, transparent);
 }
 .fi-wi-stats-overview-stat-chart .fi-wi-stats-overview-stat-chart-border-color {
-    color: var(--fi-color-gray-400);
+    color: var(--gray-400);
 }
 
 /* Coloured variants — dataset borderColor / backgroundColor are fed by
    `color` of these spans, so opacity is encoded into the colour itself. */
 .fi-wi-stats-overview-stat-chart.fi-color-primary .fi-wi-stats-overview-stat-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-primary-500) 22%, transparent);
+    color: color-mix(in oklch, var(--primary-500) 22%, transparent);
 }
 .fi-wi-stats-overview-stat-chart.fi-color-primary .fi-wi-stats-overview-stat-chart-border-color {
-    color: var(--fi-color-primary-500);
+    color: var(--primary-500);
 }
 
 .fi-wi-stats-overview-stat-chart.fi-color-success .fi-wi-stats-overview-stat-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-success-500) 22%, transparent);
+    color: color-mix(in oklch, var(--success-500) 22%, transparent);
 }
 .fi-wi-stats-overview-stat-chart.fi-color-success .fi-wi-stats-overview-stat-chart-border-color {
-    color: var(--fi-color-success-500);
+    color: var(--success-500);
 }
 
 .fi-wi-stats-overview-stat-chart.fi-color-warning .fi-wi-stats-overview-stat-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-warning-500) 22%, transparent);
+    color: color-mix(in oklch, var(--warning-500) 22%, transparent);
 }
 .fi-wi-stats-overview-stat-chart.fi-color-warning .fi-wi-stats-overview-stat-chart-border-color {
-    color: var(--fi-color-warning-500);
+    color: var(--warning-500);
 }
 
 .fi-wi-stats-overview-stat-chart.fi-color-danger .fi-wi-stats-overview-stat-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-danger-500) 22%, transparent);
+    color: color-mix(in oklch, var(--danger-500) 22%, transparent);
 }
 .fi-wi-stats-overview-stat-chart.fi-color-danger .fi-wi-stats-overview-stat-chart-border-color {
-    color: var(--fi-color-danger-500);
+    color: var(--danger-500);
 }
 
 .fi-wi-stats-overview-stat-chart.fi-color-info .fi-wi-stats-overview-stat-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-info-500) 22%, transparent);
+    color: color-mix(in oklch, var(--info-500) 22%, transparent);
 }
 .fi-wi-stats-overview-stat-chart.fi-color-info .fi-wi-stats-overview-stat-chart-border-color {
-    color: var(--fi-color-info-500);
+    color: var(--info-500);
 }
 
 /* ==========================================================================
@@ -2296,23 +2128,23 @@ h1.fi-header-heading::after {
 | in the panel — even those with custom palettes.
 */
 
-.fi-wi-chart-text-color { color: var(--fi-color-gray-500); }
-.dark .fi-wi-chart-text-color { color: var(--fi-color-gray-400); }
+.fi-wi-chart-text-color { color: var(--gray-500); }
+.dark .fi-wi-chart-text-color { color: var(--gray-400); }
 
 .fi-wi-chart-grid-color {
-    color: color-mix(in oklch, var(--fi-color-gray-500) 14%, transparent);
+    color: color-mix(in oklch, var(--gray-500) 14%, transparent);
 }
 .dark .fi-wi-chart-grid-color {
-    color: color-mix(in oklch, var(--fi-color-gray-400) 12%, transparent);
+    color: color-mix(in oklch, var(--gray-400) 12%, transparent);
 }
 
 /* Default dataset colour — only effective when a chart does NOT specify
    backgroundColor / borderColor in its dataset. New widgets built on top
    of this theme inherit the brand red automatically. */
 .fi-wi-chart-bg-color {
-    color: color-mix(in oklch, var(--fi-color-primary-500) 14%, transparent);
+    color: color-mix(in oklch, var(--primary-500) 14%, transparent);
 }
-.fi-wi-chart-border-color { color: var(--fi-color-primary-500); }
+.fi-wi-chart-border-color { color: var(--primary-500); }
 
 /* Canvas container — ensure consistent breathing room and a stable height
    so multi-row dashboards align cleanly. */
@@ -2333,29 +2165,29 @@ h1.fi-header-heading::after {
 }
 
 .fi-wi-chart-filter .fi-input-wrp {
-    border-radius: var(--ld-pill);
-    background-color: var(--fi-color-gray-50);
-    border-color: var(--fi-color-gray-200);
+    border-radius: var(--ltt-pill);
+    background-color: var(--gray-50);
+    border-color: var(--gray-200);
     box-shadow: none;
 }
 .dark .fi-wi-chart-filter .fi-input-wrp {
-    background-color: var(--fi-color-gray-950);
-    border-color: var(--fi-color-gray-800);
+    background-color: var(--gray-950);
+    border-color: var(--gray-800);
 }
 
 .fi-wi-chart-filter .fi-input-wrp:focus-within {
     background-color: white;
-    border-color: var(--fi-color-primary-500);
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--fi-color-primary-500) var(--ld-glow-mix), transparent);
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary-500) var(--ltt-glow-mix), transparent);
 }
 .dark .fi-wi-chart-filter .fi-input-wrp:focus-within {
-    background-color: var(--fi-color-gray-900);
+    background-color: var(--gray-900);
 }
 
 .fi-wi-chart-filter .fi-input-wrp-prefix {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--fi-color-gray-500);
+    color: var(--gray-500);
     text-transform: none;
     letter-spacing: 0;
 }
@@ -2370,45 +2202,45 @@ h1.fi-header-heading::after {
     gap: 0.5rem;
     margin-top: 0.75rem;
     padding-top: 0.75rem;
-    border-top: 1px solid var(--ld-border-soft-light);
+    border-top: 1px solid var(--ltt-border-soft-light);
 }
 .dark .fi-wi-chart-filter-content-actions-ctn {
-    border-top-color: var(--ld-border-soft-dark);
+    border-top-color: var(--ltt-border-soft-dark);
 }
 
 /* ==========================================================================
-   18. AUTH (login / register / reset) — Laravel red aurora
+   16. AUTH (login / register / reset) — Laravel red aurora
    ========================================================================== */
 
 .fi-simple-layout {
     background:
         radial-gradient(
             ellipse 75% 55% at 50% -10%,
-            color-mix(in oklch, var(--fi-color-primary-500) 10%, transparent),
+            color-mix(in oklch, var(--primary-500) 10%, transparent),
             transparent 60%
         ),
-        var(--fi-color-gray-50);
+        var(--gray-50);
     min-height: 100vh;
 }
 .dark .fi-simple-layout {
     background:
         radial-gradient(
             ellipse 75% 55% at 50% -10%,
-            color-mix(in oklch, var(--fi-color-primary-500) 14%, transparent),
+            color-mix(in oklch, var(--primary-500) 14%, transparent),
             transparent 60%
         ),
-        var(--fi-color-gray-950);
+        var(--gray-950);
 }
 
 .fi-simple-main {
-    border-radius: var(--ld-radius);
-    box-shadow: var(--ld-shadow-lg);
-    border: 1px solid var(--fi-color-gray-200);
+    border-radius: var(--ltt-radius);
+    box-shadow: var(--ltt-shadow-lg);
+    border: 1px solid var(--gray-200);
     background-color: white;
 }
 .dark .fi-simple-main {
-    border-color: var(--fi-color-gray-800);
-    background-color: var(--fi-color-gray-900);
+    border-color: var(--gray-800);
+    background-color: var(--gray-900);
 }
 
 .fi-simple-header-heading {
@@ -2419,7 +2251,7 @@ h1.fi-header-heading::after {
 }
 
 /* ==========================================================================
-   19. RED CHECK BULLETS in lists / prose
+   17. RED CHECK BULLETS in lists / prose
    ========================================================================== */
 
 .fi-prose ul,
@@ -2441,51 +2273,51 @@ h1.fi-header-heading::after {
     top: 0.4em;
     width: 1rem;
     height: 1rem;
-    background-color: var(--fi-color-primary-500);
+    background-color: var(--primary-500);
     -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 111.42-1.42L8.5 12.08l6.79-6.79a1 1 0 011.414 0z' clip-rule='evenodd'/></svg>") center / contain no-repeat;
             mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'><path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 111.42-1.42L8.5 12.08l6.79-6.79a1 1 0 011.414 0z' clip-rule='evenodd'/></svg>") center / contain no-repeat;
 }
 
 /* ==========================================================================
-   20. CODE — dark even in light mode
+   18. CODE — dark even in light mode
    ========================================================================== */
 
 code:not([class*="fi-"]):not(pre code) {
-    background-color: var(--fi-color-gray-900);
-    color: var(--fi-color-primary-300);
-    border-radius: var(--ld-radius-xs);
+    background-color: var(--gray-900);
+    color: var(--primary-300);
+    border-radius: var(--ltt-radius-xs);
     padding: 0.125rem 0.375rem;
     font-family: var(--font-mono);
     font-size: 0.8125em;
-    border: 1px solid var(--fi-color-gray-800);
+    border: 1px solid var(--gray-800);
 }
 
 pre {
-    background-color: var(--fi-color-gray-950);
-    color: var(--fi-color-gray-100);
-    border-radius: var(--ld-radius);
+    background-color: var(--gray-950);
+    color: var(--gray-100);
+    border-radius: var(--ltt-radius);
     padding: 1rem 1.25rem;
-    border: 1px solid var(--fi-color-gray-800);
+    border: 1px solid var(--gray-800);
     font-family: var(--font-mono);
     font-size: 0.875rem;
     overflow-x: auto;
 }
 
 /* ==========================================================================
-   21. AVATAR
+   19. AVATAR
    ========================================================================== */
 
 .fi-avatar {
-    border: 1px solid var(--fi-color-gray-200);
+    border: 1px solid var(--gray-200);
     box-shadow: 0 0 0 2px white;
 }
 .dark .fi-avatar {
-    border-color: var(--fi-color-gray-700);
-    box-shadow: 0 0 0 2px var(--fi-color-gray-900);
+    border-color: var(--gray-700);
+    box-shadow: 0 0 0 2px var(--gray-900);
 }
 
 /* ==========================================================================
-   22. UTILITIES
+   20. UTILITIES
    ==========================================================================
    .ld-eyebrow       → uppercase tracking eyebrow text (brand red)
    .ld-display       → display heading style (serif, tight letter-spacing)
@@ -2497,7 +2329,7 @@ pre {
     font-size: 0.6875rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--fi-color-primary-600);
+    color: var(--primary-600);
 }
 
 .ld-display {

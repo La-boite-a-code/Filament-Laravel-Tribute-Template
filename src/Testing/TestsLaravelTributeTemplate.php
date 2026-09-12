@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Laboiteacode\LaravelDesign\Testing;
+namespace LaBoiteACode\LaravelTributeTemplate\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 
 /**
- * Placeholder for LaravelDesign-specific Livewire testing helpers. Register
+ * Placeholder for LaravelTributeTemplate-specific Livewire testing helpers. Register
  * macros here and they become available on Filament's `Testable` instances.
  *
  * @mixin Testable
  */
-class TestsLaravelDesign {}
+class TestsLaravelTributeTemplate {}

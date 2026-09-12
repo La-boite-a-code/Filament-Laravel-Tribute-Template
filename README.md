@@ -1,11 +1,20 @@
-# LaravelDesign
+# Filament Laravel Tribute Template
 
-A free Filament v5 theme paying tribute to the laravel.com art
-direction — warm-neutral grays, double-frame surfaces, Instrument Sans
-typography, three brand palettes (Laravel · Forge · Cloud).
+**A free Filament v5 theme paying tribute to the laravel.com art direction.**
+
+> Warm-neutral grays, double-frame surfaces, Instrument Sans typography and
+> three brand palettes: Laravel, Forge and Cloud.
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/laboiteacode/filament-laravel-tribute-template.svg?style=flat-square)](https://packagist.org/packages/laboiteacode/filament-laravel-tribute-template)
+[![Tests](https://img.shields.io/github/actions/workflow/status/la-boite-a-code/filament-laravel-tribute-template/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/la-boite-a-code/filament-laravel-tribute-template/actions/workflows/run-tests.yml)
+[![Static Analysis](https://img.shields.io/github/actions/workflow/status/la-boite-a-code/filament-laravel-tribute-template/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/la-boite-a-code/filament-laravel-tribute-template/actions/workflows/phpstan.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/laboiteacode/filament-laravel-tribute-template.svg?style=flat-square)](https://packagist.org/packages/laboiteacode/filament-laravel-tribute-template)
+[![License](https://img.shields.io/packagist/l/laboiteacode/filament-laravel-tribute-template.svg?style=flat-square)](LICENSE.md)
 
 First in a series of homage themes by
 [La Boite à Code](https://laboiteacode.fr).
+
+![Filament Laravel Tribute Template](art/banner.png)
 
 ---
 
@@ -23,17 +32,17 @@ First in a series of homage themes by
 ### 1. Pull the package
 
 ```bash
-composer require laboiteacode/laravel-design
+composer require laboiteacode/filament-laravel-tribute-template
 ```
 
 ### 2. Run the installer
 
 ```bash
-php artisan laravel-design:install
+php artisan laravel-tribute-template:install
 ```
 
 This publishes:
-- `config/laravel-design.php` — optional env-driven palette default
+- `config/filament-laravel-tribute-template.php` — optional env-driven palette default
 - `resources/css/filament/admin/theme.css` — Filament panel theme entry-point
 
 ### 3. Wire the theme into your panel
@@ -42,15 +51,15 @@ Edit `app/Providers/Filament/AdminPanelProvider.php` and register both the
 theme stylesheet and the plugin:
 
 ```php
-use Laboiteacode\LaravelDesign\Enums\Palette;
-use Laboiteacode\LaravelDesign\LaravelDesignPlugin;
+use LaBoiteACode\LaravelTributeTemplate\Enums\Palette;
+use LaBoiteACode\LaravelTributeTemplate\LaravelTributeTemplatePlugin;
 
 public function panel(Panel $panel): Panel
 {
     return $panel
         ->viteTheme('resources/css/filament/admin/theme.css')
         ->plugin(
-            LaravelDesignPlugin::make()
+            LaravelTributeTemplatePlugin::make()
                 ->palette(Palette::Laravel),
         );
 }
@@ -69,30 +78,46 @@ Reload the panel and the theme is live.
 
 ## Picking a palette
 
-Three brand palettes ship out of the box. Each one swaps the panel's
-`primary` color and applies a `.ld-palette-{name}` class on `<body>` so the
-CSS can remap `--fi-color-primary-*` tokens consistently.
+Three brand palettes ship out of the box. Each one registers a full shade
+scale on the panel through Filament's own `->colors()`, so every component
+follows it — no body class, no second copy of the scale.
 
 ```php
-use Laboiteacode\LaravelDesign\Enums\Palette;
+use LaBoiteACode\LaravelTributeTemplate\Enums\Palette;
 
-LaravelDesignPlugin::make()->palette(Palette::Laravel) // #f53003 (default)
-LaravelDesignPlugin::make()->palette(Palette::Forge)   // #18b69b
-LaravelDesignPlugin::make()->palette(Palette::Cloud)   // #0057ff
+LaravelTributeTemplatePlugin::make()->palette(Palette::Laravel) // #F53003 (default)
+LaravelTributeTemplatePlugin::make()->palette(Palette::Forge)   // #02EAC2
+LaravelTributeTemplatePlugin::make()->palette(Palette::Cloud)   // #0057FF
 ```
 
-Cards, callouts, sidebar active states, focus rings, primary buttons,
-notification dots and pagination chips all follow the chosen palette
-automatically — no further configuration needed.
+| Palette   | Brand colour | Grays   | Primary buttons               |
+| --------- | ------------ | ------- | ----------------------------- |
+| `laravel` | `#F53003`    | stone   | white text on red             |
+| `forge`   | `#02EAC2`    | neutral | dark text on the bright green |
+| `cloud`   | `#0057FF`    | slate   | white text on blue            |
+
+The scales are hand-tuned rather than generated. Filament picks button,
+badge and link shades by contrast, and a generated scale drifts away from
+the brand: Laravel red turns pink, Forge green loses its dark text. Cards,
+callouts, sidebar active states, focus rings, primary buttons, notification
+dots and pagination chips all follow the chosen palette automatically.
+
+Override individual slots on top of a palette:
+
+```php
+LaravelTributeTemplatePlugin::make()
+    ->palette(Palette::Cloud)
+    ->colors(['gray' => 'zinc', 'warning' => '#F59E0B']);
+```
 
 ### Driving the palette from env
 
-The plugin reads `config('laravel-design.palette')` automatically when
+The plugin reads `config('filament-laravel-tribute-template.palette')` automatically when
 `->palette()` is not called explicitly. Set the env var and the panel
 follows — no extra wiring needed:
 
 ```dotenv
-LARAVEL_DESIGN_PALETTE=cloud
+LARAVEL_TRIBUTE_TEMPLATE_PALETTE=cloud
 ```
 
 Calling `->palette(Palette::Forge)` always wins over the env value.
@@ -101,29 +126,31 @@ Calling `->palette(Palette::Forge)` always wins over the env value.
 
 ## Plugin API
 
-All options are fluent and can be chained on `LaravelDesignPlugin::make()`.
+All options are fluent and can be chained on `LaravelTributeTemplatePlugin::make()`.
 
 | Method | Purpose | Default |
 | --- | --- | --- |
 | `palette(Palette $palette)` | Pick the brand palette | `Palette::Laravel` |
 | `font(?string $font)` | Override the panel font (`null` to leave Filament's choice) | `'Instrument Sans'` |
-| `maxContentWidth(bool\|string $value = true)` | `true` for `'full'`, any Filament preset string, or `false` to keep the panel's setting | `false` |
-| `colors(array $colors)` | Replace the auto-resolved color array with your own (`Color::hex()` / Filament palettes) | auto |
-| `withoutColors()` | Skip color injection entirely — keep the panel's `->colors()` untouched | enabled |
+| `sidebarWidth(?string $width)` | Override the sidebar width (`null` to leave Filament's choice) | Filament's default |
+| `maxContentWidth(bool\|string\|Width $value = true)` | `true` for full width, a `Width` case or preset string, or `false` to keep the panel's setting | `false` |
+| `colors(array $colors)` | Override colour slots on top of the palette (Filament colour name, hex / `rgb()` / `oklch()` string, shade array, or a closure) | palette |
+| `withoutColors()` | Skip colour injection entirely — keep the panel's `->colors()` untouched | enabled |
 
 ### Example — full configuration
 
 ```php
 use Filament\Support\Colors\Color;
-use Laboiteacode\LaravelDesign\Enums\Palette;
-use Laboiteacode\LaravelDesign\LaravelDesignPlugin;
+use LaBoiteACode\LaravelTributeTemplate\Enums\Palette;
+use LaBoiteACode\LaravelTributeTemplate\LaravelTributeTemplatePlugin;
 
-LaravelDesignPlugin::make()
+LaravelTributeTemplatePlugin::make()
     ->palette(Palette::Forge)
     ->font('Inter')
-    ->maxContentWidth('full')
+    ->sidebarWidth('18rem')
+    ->maxContentWidth()
     ->colors([
-        'primary' => Color::hex('#7c3aed'),
+        'primary' => '#7C3AED',
         'gray' => Color::Slate,
     ]);
 ```
@@ -132,7 +159,7 @@ LaravelDesignPlugin::make()
 
 ## What the theme styles
 
-Out of the box, LaravelDesign restyles every Filament v5 surface to match
+Out of the box, LaravelTributeTemplate restyles every Filament v5 surface to match
 the laravel.com art direction:
 
 - **Sections & cards** — double-frame (inner border + canvas gap + outer
@@ -160,23 +187,23 @@ the page without needing a hard background fill.
 
 ## Customizing tokens
 
-LaravelDesign exposes a handful of CSS custom properties so you can tweak
+LaravelTributeTemplate exposes a handful of CSS custom properties so you can tweak
 geometry without rewriting selectors. Add overrides in your panel's theme
 CSS, **after** the package import:
 
 ```css
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
-@import '../../../../vendor/laboiteacode/laravel-design/resources/css/index.css';
+@import '../../../../vendor/laboiteacode/filament-laravel-tribute-template/resources/css/index.css';
 
 /* Your overrides */
 :root {
-    --ld-radius-sm: 0.25rem;     /* tighter buttons */
-    --ld-radius:    0.625rem;    /* softer cards */
-    --ld-frame-gap: 4px;         /* wider double-frame gap */
+    --ltt-radius-sm: 0.25rem;     /* tighter buttons */
+    --ltt-radius:    0.625rem;    /* softer cards */
+    --ltt-frame-gap: 4px;         /* wider double-frame gap */
 }
 
 .dark {
-    --ld-frame-ring-color: oklch(0.30 0.005 75);
+    --ltt-frame-ring-color: oklch(0.30 0.005 75);
 }
 ```
 
@@ -184,25 +211,42 @@ Available tokens:
 
 | Token | Role |
 | --- | --- |
-| `--ld-radius-xs` / `-sm` / `--ld-radius` / `-lg` | Corner radius scale |
-| `--ld-pill` | Pill radius (badges, segmented tabs) |
-| `--ld-stroke` | Default border thickness |
-| `--ld-border-soft-light` / `-dark` | Hairline divider colour, per mode |
-| `--ld-canvas` | Body canvas colour |
-| `--ld-frame-gap` | Gap between inner border and outer ring |
-| `--ld-frame-gap-color` | Gap fill colour (defaults to canvas) |
-| `--ld-frame-ring-color` | Outer ring colour |
-| `--ld-shadow-sm` / `--ld-shadow-lg` | Elevation scale |
-| `--ld-glow-mix` | Focus glow intensity (0–100%) |
-| `--ld-duration-slow` | Motion timings |
-| `--ld-ease-out` | Motion curve |
+| `--ltt-radius-xs` / `-sm` / `--ltt-radius` / `-lg` | Corner radius scale |
+| `--ltt-pill` | Pill radius (badges, segmented tabs) |
+| `--ltt-stroke` | Default border thickness |
+| `--ltt-border-soft-light` / `-dark` | Hairline divider colour, per mode |
+| `--ltt-canvas` | Body canvas colour |
+| `--ltt-frame-gap` | Gap between inner border and outer ring |
+| `--ltt-frame-gap-color` | Gap fill colour (defaults to canvas) |
+| `--ltt-frame-ring-color` | Outer ring colour |
+| `--ltt-shadow-sm` / `--ltt-shadow-lg` | Elevation scale |
+| `--ltt-glow-mix` | Focus glow intensity (0–100%) |
+| `--ltt-duration-slow` | Motion timings |
+| `--ltt-ease-out` | Motion curve |
 
+
+---
+
+## How the theme hooks into Filament
+
+The stylesheet only uses mechanisms Filament ships, so it survives Filament
+updates and stays overridable:
+
+- **Colours** are read from the panel palette through Filament's own
+  variables (`--primary-500`, `--gray-200`, `--danger-600`, and `--color-*`
+  inside coloured components). Change the palette and the whole theme
+  follows.
+- **Fonts** come from `->font()`, the **sidebar width** from
+  `->sidebarWidth()`. Nothing is hard-coded.
+- **Every `.fi-*` selector** is checked against the installed Filament
+  sources by `tests/ThemeCssTest.php`, which fails if the theme targets a
+  class Filament does not render.
 
 ---
 
 ## How it's compiled
 
-LaravelDesign ships only source CSS — no precompiled bundle. The host
+LaravelTributeTemplate ships only source CSS — no precompiled bundle. The host
 app's Vite/Tailwind pipeline picks up the package's
 `resources/css/index.css` through the theme entrypoint published to
 `resources/css/filament/admin/theme.css`, alongside Filament's own theme
