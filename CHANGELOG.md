@@ -2,7 +2,10 @@
 
 All notable changes to `filament-laravel-tribute-template` will be documented in this file.
 
-## [1.0.1] - 2026-09-12
+## [1.0.2] - 2026-09-12
+
+Supersedes 1.0.1, which was tagged from an incomplete commit and carries the
+new workflows and the screenshots without the fixes below.
 
 ### Fixed
 
@@ -15,9 +18,21 @@ All notable changes to `filament-laravel-tribute-template` will be documented in
 - Darkened the Forge `600` shade so the dark-mode button Filament picks from it
   clears 4.5:1 against its white label.
 
+### Changed
+
+- The release archive now excludes the press kit, the security policy and the
+  build tooling, keeping only the sources, the config, the stylesheet and the
+  published stub.
+- Removed the three workflows superseded in 1.0.1.
+
 ### Added
 
 - Six screenshots in the README, one per palette and colour mode.
+
+## [1.0.1] - 2026-09-12
+
+### Added
+
 - `SECURITY.md` with a private reporting address.
 - Dependabot covering Composer, npm and GitHub Actions, with a seven-day
   cooldown before a new release is proposed.
@@ -28,9 +43,6 @@ All notable changes to `filament-laravel-tribute-template` will be documented in
   every action pinned to a full commit SHA, read-only token permissions, job
   timeouts, `composer validate --strict` and `composer audit`. The matrix runs
   PHP 8.2 to 8.5 against Laravel 12 and 13, and a job compiles the stylesheet.
-- The release archive now excludes the press kit, the security policy and the
-  build tooling, keeping only the sources, the config, the stylesheet and the
-  published stub.
 
 ## [1.0.0] - 2026-09-12
 
