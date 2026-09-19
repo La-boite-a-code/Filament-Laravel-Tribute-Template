@@ -14,7 +14,11 @@
 First in a series of homage themes by
 [La Boite à Code](https://laboiteacode.fr).
 
+<div class="filament-hidden">
+
 ![Filament Laravel Tribute Template](art/banner.png)
+
+</div>
 
 ---
 
